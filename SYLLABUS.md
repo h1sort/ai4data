@@ -1,4 +1,4 @@
-# Experto en IA Agéntica para Datos — Temario (borrador)
+# Experto en IA Agéntica para Datos · Temario
 
 12 sesiones en vivo · sábados · 3 horas · 6 módulos de 2 clases · un caso, un dataset, un proyecto final.
 
