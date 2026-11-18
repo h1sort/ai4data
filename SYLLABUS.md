@@ -2,7 +2,7 @@
 
 12 sesiones en vivo · sábados · 3 horas · 6 módulos de 2 clases · un caso, un dataset, un proyecto final.
 
-> Estado: **borrador v2**, aprobado por Carlos el 18 nov 2026, pendiente de revisión con Código Facilito. Los títulos de los módulos 2–6 se conservan como están publicados; el Módulo 1 lleva títulos nuevos (ver nota al final).
+Versión web: [h1sort.com/ai4data](https://h1sort.com/ai4data/) · Inscripción: [Código Facilito](https://codigofacilito.com/programas/ia-datos)
 
 ---
 
@@ -167,18 +167,3 @@ Todo corre en local con DuckDB. En los módulos 4 y 6 se usa además un warehous
 6. Capa semántica y monitoreo (M6).
 
 **Calificación:** exactitud sobre el set oculto, varianza, costo por respuesta y la calidad del análisis de errores. Gana claridad sobre el porqué, no solo el número.
-
----
-
-## Nota sobre la corrección del Módulo 1
-
-Problemas que veo en el Módulo 1 publicado (por confirmar cuál señaló Código Facilito):
-
-1. **Títulos duplicados.** El título del módulo ("Fundamentos Teóricos de LLMs en Análisis de Datos") y el de la clase 1 ("Fundamentos Teóricos de LLMs en Datos") son casi iguales.
-2. **Vendor en un módulo de fundamentos.** "…para Datos, en Snowflake" ata una clase de fundamentos a un producto; ningún otro título del temario nombra un vendor.
-3. **Traslape con el curso gratuito.** "Fundamentos teóricos de LLMs" es justo la primera hora de la clase 3 gratuita (transformer, entrenamiento, qué es un agente).
-
-Propuesta de títulos:
-- Módulo 1: **Fundamentos de LLMs para Análisis de Datos** (se quita "Teóricos": el módulo es práctico).
-- Clase 1: **El LLM como instrumento de medición en datos**.
-- Clase 2: **Elegir modelo para datos: costo, contexto y exactitud** (Snowflake se queda como laboratorio, no en el título).
