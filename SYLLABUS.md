@@ -2,7 +2,7 @@
 
 12 sesiones en vivo · sábados · 3 horas · 6 módulos de 2 clases · un caso, un dataset, un proyecto final.
 
-> Estado: **borrador v1** para revisión con Código Facilito. Los títulos de los módulos se conservan como están publicados; lo que cambia es el enfoque de cada clase. La única propuesta de cambio de título es en el Módulo 1 (ver nota al final).
+> Estado: **borrador v2**, aprobado por Carlos el 18 nov 2026, pendiente de revisión con Código Facilito. Los títulos de los módulos 2–6 se conservan como están publicados; el Módulo 1 lleva títulos nuevos (ver nota al final).
 
 ---
 
@@ -45,21 +45,27 @@ Todo corre en local con DuckDB. En los módulos 4 y 6 se usa además un warehous
 
 ---
 
-## Módulo 1 · Fundamentos Teóricos de LLMs en Análisis de Datos
+## Módulo 1 · Fundamentos de LLMs para Análisis de Datos
 
 *No es "cómo funciona un transformer" (eso fue la clase 3 gratuita). Es lo que un profesional de datos necesita saber del modelo cuando lo que sale es un número.*
 
-### Sesión 1 · El LLM como instrumento de medición
+### Sesión 1 · El LLM como instrumento de medición en datos
 - Repaso de 10 min con enlace a la clase 3 gratuita.
-- Tokens aplicados a datos: cómo se tokenizan números, fechas y tablas; por qué un LLM suma mal; cuántas filas caben realmente en una ventana de contexto y cuánto cuesta.
+- **Lab nanoGPT (45–60 min):** entrenar en CPU un modelo de caracteres mínimo (basado en nanoGPT de Andrej Karpathy) con datos generados para el curso:
+  - cadenas de aritmética (`23+45=68`): acierta las sumas que vio, falla las nuevas, y con toda seguridad;
+  - una columna de texto del caso (descripciones de transacciones): inventa filas que parecen reales y no lo son.
+  - Conclusión: el modelo aprendió *cómo se ven* los datos, no *qué es verdad*. Por eso el resto del programa trata de herramientas, SQL y evals.
+  - Plan B: checkpoint pre-entrenado para quien tenga una laptop lenta.
+- Tokens aplicados a datos: cómo se tokenizan números, fechas y tablas; cuántas filas caben realmente en una ventana de contexto y cuánto cuesta.
 - No determinismo medido, no explicado: la misma pregunta 20 veces y cuántas respuestas distintas salen.
 - Salidas estructuradas (JSON Schema) como contrato entre el modelo y el pipeline.
-- Tres formas de responder una pregunta de datos: el modelo calcula, el modelo escribe SQL, o el modelo llama a una herramienta. Cuándo usar cada una.
 - **Lab:** primera corrida contra el set dorado.
-- **Entregable:** marcador v0 (exactitud, varianza, costo, latencia), que es la línea base del programa.
+- **Entregable:** mini-modelo entrenado + marcador v0 (exactitud, varianza, costo, latencia), que es la línea base del programa.
 
-### Sesión 2 · Elegir modelo para datos: costo, contexto, exactitud y dónde corre
-- Familias de modelos: frontera, pequeños, open-weights; razonamiento vs no razonamiento.
+### Sesión 2 · Elegir modelo para datos: costo, contexto y exactitud
+- Tres familias de modelos: frontera, pequeños/open-weights y **modelos de decisión (System One)**, cuyo primer ejemplo comercial es **Jev** de TypeSafe: responden preguntas tipadas (una etiqueta de una lista, un puntaje o una probabilidad), no generan texto.
+- Regla práctica: si la pregunta es un juicio con categorías fijas, no necesitas un modelo generativo. Si es aritmética, conteo o fechas, ni uno ni otro: código.
+- Tres formas de responder una pregunta de datos: el modelo calcula, el modelo escribe SQL o el modelo llama a una herramienta.
 - Dónde corre el modelo: API pública, dentro del warehouse (Snowflake Cortex como laboratorio principal) o local. Implicaciones de privacidad y residencia de datos para industrias reguladas.
 - Leer una tabla de precios: input, output, tokens de razonamiento, caché.
 - Por qué el benchmark público no responde tu pregunta: comparar 3–4 modelos sobre el set dorado propio.
@@ -105,8 +111,9 @@ Todo corre en local con DuckDB. En los módulos 4 y 6 se usa además un warehous
 - Llamar modelos desde Python dentro de un pipeline: salidas estructuradas, lotes (batch), concurrencia.
 - Reintentos con presupuesto: límite de intentos, de tokens y de dinero por corrida.
 - Caché y contabilidad de costos por pipeline.
+- **LLM vs modelo de decisión:** la misma clasificación de tickets y reseñas con un LLM (salida estructurada) y con Jev. Se comparan exactitud, salidas inválidas o nulas, varianza entre corridas y costo por 1,000 filas. También se prueba lo que sus propios autores advierten: que las probabilidades cambian con el orden de las opciones y que el modelo es débil en aritmética, conteo y fechas.
 - **Lab:** clasificar y extraer campos de los tickets y reseñas a columnas, con un tope de gasto.
-- **Entregable:** pipeline de enriquecimiento con reporte de costo.
+- **Entregable:** pipeline de enriquecimiento con reporte de costo + la comparativa LLM vs Jev.
 
 ### Sesión 8 · Productos en Data Warehouses con LLMs
 - Funciones de IA dentro del warehouse (Cortex AI SQL, `ai_query` de Databricks): cuándo convienen frente a tu propio pipeline.
@@ -155,7 +162,7 @@ Todo corre en local con DuckDB. En los módulos 4 y 6 se usa además un warehous
 1. Modelo elegido y justificado con números (M1).
 2. Prompting y RAG sobre definiciones (M2).
 3. Agente con herramientas propias y permisos (M3).
-4. Al menos un pipeline de enriquecimiento con costo controlado (M4).
+4. Al menos un pipeline de enriquecimiento con costo controlado, justificando por tarea si usa modelo de decisión, LLM o SQL (M4).
 5. Suite de evals en CI y juez calibrado (M5).
 6. Capa semántica y monitoreo (M6).
 
