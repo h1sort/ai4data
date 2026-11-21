@@ -11,8 +11,10 @@ Producir el análisis se volvió barato. Saber si es verdad, no. En este program
 ## Antes de la sesión 1 (hazlo en casa: descarga varios GB)
 
 1. Instala **git** y **uv** ([docs.astral.sh/uv](https://docs.astral.sh/uv/getting-started/installation/)). uv instala Python 3.14 por ti.
-2. Clona los dos repos **en la misma carpeta**:
+2. Crea una carpeta para el curso y clona ahí los dos repos, **lado a lado**:
    ```
+   mkdir AI4DATA
+   cd AI4DATA
    git clone https://github.com/h1sort/ai4data
    git clone https://github.com/karpathy/nanoGPT
    ```
