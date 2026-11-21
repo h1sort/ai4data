@@ -15,6 +15,15 @@ RAIZ = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(RAIZ / 'herramientas'))
 import llm  # noqa: E402
 
+vistos_avisos = set()
+
+
+def avisar(r):
+    for a in r.get('avisos', []):
+        if a not in vistos_avisos:
+            vistos_avisos.add(a); print(f'  [aviso] {a}')
+
+
 ap = argparse.ArgumentParser()
 ap.add_argument('--n', type=int, default=20)
 ap.add_argument('--temperatura', type=float, default=None)
@@ -38,6 +47,7 @@ print(f'modelo {llm.MODEL} · {a.n} corridas · {a.filas} filas · temperatura {
 resp, defs, tok, seg = [], Counter(), 0, 0.0
 for i in range(a.n):
     r = llm.chat(mensajes, llm.ESQUEMA_RESPUESTA if a.esquema else None, a.temperatura)
+    avisar(r)
     v = llm.extraer_valor(r['texto'])
     try:
         v = round(float(v), 2)

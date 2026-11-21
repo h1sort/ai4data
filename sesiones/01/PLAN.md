@@ -43,8 +43,8 @@ Todo desemboca en el **marcador v0** de cada alumno (exactitud, varianza, costo,
 | 21 | | `tokens-costo` | Filas × tokens × precio (precio en vivo) | 4 |
 | 22 | | `no-sumes` | El modelo no suma: escribe código | 3 |
 | 23 | | `lab-tokens` | Lab: tokeniza tus propios datos (4 min) | 4 |
-| 24 | Modelos de otros y no determinismo | `modelos-de-otros` | Tu ckpt de 0.79M vs Inkling 2 Mini (26.4B, pesos abiertos) | 3 |
-| 25 | | `donde-corre` | Remoto (OpenRouter) o local (Ollama): .env | 4 |
+| 24 | Modelos de otros y no determinismo | `modelos-de-otros` | Tu ckpt de 0.79M → qwen3:1.7b local (cuantizado, 1.4 GB) → modelos por API | 3 |
+| 25 | | `donde-corre` | Local con Ollama (por defecto) o tu llave de OpenAI/Anthropic: .env. Demo en vivo con la llave del profesor | 4 |
 | 26 | | `veinte` | La misma pregunta 20 veces, con el comando en la lámina | 5 |
 | 27 | | `medir-varianza` | Distintas, consenso, exactitud | 5 |
 | 28 | | `temperatura-cero` | 1,000 corridas a temperatura 0 → 80 respuestas | 4 |
@@ -77,8 +77,8 @@ Todo desemboca en el **marcador v0** de cada alumno (exactitud, varianza, costo,
 - **Tokenización**: medición propia con `tiktoken` (OpenAI), codificaciones o200k_base y cl100k_base, script `lab-tokens/tokens.py`. Las dos dan los mismos cortes en todos los ejemplos de la lámina. Fila del caso (`caso/transacciones.csv`, o200k_base): 36.7 tokens en promedio (34–40), encabezado 20; la tabla completa de 500 filas, 18,347 tokens. La primera fila (TX-00304) son 36 tokens; la lámina muestra sus cortes reales.
 - **Filas que caben**: `tokens.py`: ~5,456 filas en 200 mil (lámina: ~5,450) y ~27,282 en 1 millón (~27,300); un millón de filas ≈ 37 millones de tokens. Sin contar instrucciones ni respuesta.
 - **DDIA**: Martin Kleppmann, *Designing Data-Intensive Applications*, O'Reilly, marzo 2017, 616 páginas (ficha de O'Reilly; el sitio del autor dice 614). Tokens por libro: **estimación**, no medición: con la regla de ~3 páginas por cada mil tokens (Redis, "context window"), ~205 mil tokens → 200 mil ≈ 1 DDIA, 1 millón ≈ 5, 37 millones ≈ 180.
-- **Inkling 2 Mini**: Thinking Machines Lab, "Introducing Inkling 2 Mini" (20 nov 2026), https://thinkingmachines.ai/news/inkling-2-mini/ : 26.4B parámetros totales, 3.4B activos, ~20 GB, pesos abiertos (Apache 2.0, ficha en Hugging Face `thinkingmachines/Inkling-2-Mini`), en Ollama para Macs con 32 GB o más. En OpenRouter como `thinkingmachines/inkling-2-mini`; el precio no va en lámina (las fuentes no coinciden: $0.08/$0.35 vs $0.10/$0.40 por millón): se copia en vivo de la página del modelo. La página del modelo no dice nada sobre determinismo al servirlo.
-- **Modelos locales**: Ollama, `qwen3:1.7b` (1.4 GB), `qwen3:4b` (2.5 GB), `inkling-2-mini` (~20 GB), según ollama.com/library.
+- **Modelo local**: Ollama, https://ollama.com/library/qwen3/tags : `qwen3:1.7b` pesa 1.4 GB y coincide con la etiqueta `1.7b-q4_K_M` (cuantizado a 4 bits; fp16 pesa 4.1 GB); `qwen3:0.6b`, 523 MB.
+- **Modelos por API**: OpenAI `gpt-6-luna` (el más barato en developers.openai.com/docs/models, nov 2026) y Anthropic `claude-haiku-5-5` por el endpoint compatible con OpenAI (`https://api.anthropic.com/v1/`, platform.claude.com/docs "OpenAI SDK compatibility": acepta `json_schema` estricto, rechaza `json_object`, y en Claude 4.7 y posteriores rechaza temperaturas menores a 1). `herramientas/llm.py` reintenta sin lo que el proveedor rechace y lo avisa. Precios: no van en lámina; cada quien los copia a su `.env`.
 - **No determinismo a temperatura 0**: Horace He y Thinking Machines Lab, "Defeating Nondeterminism in LLM Inference" (10 sep 2025). https://thinkingmachines.ai/blog/defeating-nondeterminism-in-llm-inference/
 - **Salidas estructuradas**: OpenAI, "Introducing Structured Outputs in the API" (6 ago 2024), https://openai.com/index/introducing-structured-outputs-in-the-api/ ; JSON Schema, https://json-schema.org
 - **Modelos de decisión (adelanto de la sesión 2)**: Jev de TypeSafe; ver `SYLLABUS.md`.
@@ -95,9 +95,9 @@ Primeras 50 filas del caso. Verdad por código: ticket promedio con tarjeta = **
 ## 4. Pendientes antes de la clase
 
 - [x] **Caso v0 y set dorado** (`caso/`): 500 transacciones y 10 preguntas, cada respuesta verificada en Python y SQL. Crece en los siguientes módulos (más tablas, preguntas escondidas para el proyecto final).
-- [x] **Scripts de `lab-veinte/` y `lab-marcador/`** sobre `herramientas/llm.py` (API compatible con OpenAI: OpenAI, OpenRouter, Ollama). Probados contra un servidor simulado; **falta una corrida real** con un modelo, y grabarla como respaldo para `veinte`.
+- [x] **Scripts de `lab-veinte/` y `lab-marcador/`** sobre `herramientas/llm.py` (API compatible con OpenAI: Ollama, OpenAI, Anthropic). Probados contra un servidor simulado; **falta una corrida real** con un modelo, y grabarla como respaldo para `veinte`.
 - [x] **Checkpoint de respaldo**: `lab-nanogpt/respaldo/` (solo pesos, ~3 MB cada uno) + `usar_respaldo.py`.
 - [x] **Todo con uv y Python 3.14**, comandos de una línea desde la raíz del repo (sin `$PWD`): probado en Linux; falta probar en una máquina Windows real.
-- [ ] **Corrida real con Inkling 2 Mini** (OpenRouter) de `veinte` y `marcador`, y grabar la de `veinte` como respaldo.
-- [ ] **Mandar a los alumnos la preparación previa** (README de la raíz): uv, clonar, `uv sync`, `.env`, y Ollama + modelo si van a usar local.
+- [ ] **Corrida real** de `veinte` y `marcador` con qwen3:1.7b local y con la llave del profesor (gpt-6-luna o claude-haiku-5-5); grabar la de `veinte` como respaldo.
+- [ ] **Mandar a los alumnos la preparación previa** (README de la raíz): uv, clonar, `uv sync`, Ollama + `qwen3:1.7b`, y `.env`.
 - [ ] Ensayar una vez con cronómetro.

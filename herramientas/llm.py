@@ -1,12 +1,12 @@
-"""Cliente mínimo para cualquier API compatible con OpenAI (OpenRouter, OpenAI, Ollama local…).
+"""Cliente mínimo para cualquier API compatible con OpenAI (Ollama local, OpenAI, Anthropic…).
 
 Solo biblioteca estándar. Se configura con un archivo .env en la raíz del repo
-(copia .env.ejemplo a .env y edítalo). Las variables de entorno, si existen, ganan:
-  LLM_BASE_URL  https://openrouter.ai/api/v1 · http://localhost:11434/v1 (Ollama) · …
-  LLM_MODEL     thinkingmachines/inkling-2-mini · qwen3:4b · …
+(copia .env.example a .env y edítalo). Las variables de entorno, si existen, ganan:
+  LLM_BASE_URL  http://localhost:11434/v1 (Ollama) · https://api.openai.com/v1 · https://api.anthropic.com/v1
+  LLM_MODEL     qwen3:1.7b · gpt-6-luna · claude-haiku-5-5 · …
   LLM_API_KEY   la llave del proveedor (Ollama no la necesita)
 """
-import json, os, time, urllib.error, urllib.request
+import json, os, re, time, urllib.error, urllib.request
 from pathlib import Path
 
 
@@ -21,32 +21,53 @@ def _leer_env():
 
 
 _leer_env()
-BASE = os.environ.get('LLM_BASE_URL', 'https://openrouter.ai/api/v1').rstrip('/')
-MODEL = os.environ.get('LLM_MODEL', 'thinkingmachines/inkling-2-mini')
+BASE = os.environ.get('LLM_BASE_URL', 'http://localhost:11434/v1').rstrip('/')
+MODEL = os.environ.get('LLM_MODEL', 'qwen3:1.7b')
 KEY = os.environ.get('LLM_API_KEY', '')
 
 
-def chat(mensajes, esquema=None, temperatura=None, max_tokens=800):
-    """Devuelve dict(texto, entrada, salida, segundos). `esquema`: JSON Schema de la respuesta."""
+def chat(mensajes, esquema=None, temperatura=None, max_tokens=4000):
+    """Devuelve dict(texto, entrada, salida, segundos, avisos). `esquema`: JSON Schema de la respuesta.
+
+    Cada proveedor acepta parámetros un poco distintos. Si uno los rechaza (error 400),
+    se reintenta sin lo que rechazó y se deja un aviso, en lugar de tronar a mitad del lab:
+    - temperatura: Claude 4.7 en adelante solo acepta 1; algunos modelos de razonamiento, ninguna.
+    - max_tokens: algunos modelos de OpenAI piden max_completion_tokens.
+    - json_schema: si no lo acepta, prueba json_object y luego texto libre.
+    max_tokens es alto porque los modelos que razonan gastan tokens antes de contestar.
+    """
     body = {'model': MODEL, 'messages': mensajes, 'max_tokens': max_tokens}
     if temperatura is not None:
         body['temperature'] = temperatura
     if esquema:
         body['response_format'] = {'type': 'json_schema',
                                    'json_schema': {'name': 'respuesta', 'strict': True, 'schema': esquema}}
-    t0 = time.time()
-    try:
-        r = _post(body)
-    except urllib.error.HTTPError as e:
-        if not esquema or e.code != 400:
-            raise
-        # Algunos modelos no aceptan json_schema: cae a JSON simple y lo dice.
-        print(f'  [aviso] {MODEL} no aceptó json_schema; uso response_format json_object')
-        body['response_format'] = {'type': 'json_object'}
-        r = _post(body)
+    avisos, t0 = [], time.time()
+    for _ in range(5):
+        try:
+            r = _post(body)
+            break
+        except urllib.error.HTTPError as e:
+            if e.code != 400:
+                raise
+            msg = e.read().decode(errors='replace').lower()
+            if 'temperature' in body and 'temperature' in msg:
+                body.pop('temperature'); avisos.append(f'{MODEL} no acepta esa temperatura: uso la suya por defecto')
+            elif 'max_tokens' in body and 'max_tokens' in msg:
+                body['max_completion_tokens'] = body.pop('max_tokens')
+            elif body.get('response_format', {}).get('type') == 'json_schema':
+                body['response_format'] = {'type': 'json_object'}; avisos.append(f'{MODEL} no aceptó json_schema; pruebo json_object')
+            elif 'response_format' in body:
+                body.pop('response_format'); avisos.append(f'{MODEL} no aceptó formato JSON; pido texto libre')
+            else:
+                raise urllib.error.HTTPError(e.url, e.code, msg[:300], e.headers, None) from None
+    else:
+        raise RuntimeError('demasiados reintentos')
     u = r.get('usage') or {}
-    return {'texto': r['choices'][0]['message']['content'] or '', 'entrada': u.get('prompt_tokens', 0),
-            'salida': u.get('completion_tokens', 0), 'segundos': time.time() - t0}
+    texto = r['choices'][0]['message'].get('content') or ''
+    texto = re.sub(r'<think>.*?</think>', '', texto, flags=re.S).strip()  # qwen3 en Ollama puede incluir su razonamiento
+    return {'texto': texto, 'entrada': u.get('prompt_tokens', 0), 'salida': u.get('completion_tokens', 0),
+            'segundos': time.time() - t0, 'avisos': avisos}
 
 
 def _post(body):
@@ -72,7 +93,6 @@ ESQUEMA_RESPUESTA = {
 
 def extraer_valor(texto):
     """Saca la respuesta de un JSON con 'valor', o la última cifra/línea si es prosa."""
-    import re
     try:
         return json.loads(texto)['valor']
     except (ValueError, KeyError, TypeError):

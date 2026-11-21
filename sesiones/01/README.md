@@ -13,6 +13,6 @@ Módulo 1 · Fundamentos de LLMs para Análisis de Datos.
 | La misma pregunta 20 veces (y con esquema) | [lab-veinte/](lab-veinte/) | 16 min |
 | Marcador v0 contra el set dorado | [lab-marcador/](lab-marcador/) | 15 min |
 
-`lab-veinte` y `lab-marcador` usan cualquier API compatible con OpenAI. Se configuran en `.env` (copia de `.env.ejemplo`): Inkling 2 Mini en OpenRouter, o un modelo local en Ollama.
+`lab-veinte` y `lab-marcador` usan cualquier API compatible con OpenAI. Se configuran en `.env` (copia de `.env.example`): qwen3 local en Ollama por defecto, o tu llave de OpenAI (`gpt-6-luna`) o Anthropic (`claude-haiku-5-5`).
 
 **Entregable:** la salida de `evaluar_sumas.py`, tu `marcador_v0.json` y una frase en el README de tu fork: ¿qué pregunta falló más y por qué?

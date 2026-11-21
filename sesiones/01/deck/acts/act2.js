@@ -47,9 +47,9 @@
     .lab2 pre.code .c { color: var(--faint); }
     .lab2 .r .t-small { color: var(--dim); }
 
-    #s-modelos-de-otros .mo { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; margin-top: 10px; }
+    #s-modelos-de-otros .mo { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 48px; margin-top: 10px; }
     #s-modelos-de-otros .mo > div { border-top: 3px solid var(--fg); padding-top: 20px; }
-    #s-modelos-de-otros .mo .big { font-size: 130px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; margin: 16px 0 12px; }
+    #s-modelos-de-otros .mo .big { font-size: 110px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; margin: 16px 0 12px; }
     #s-modelos-de-otros .mo p { font-size: 30px; color: var(--dim); line-height: 1.35; margin: 0; }
     #s-modelos-de-otros .mo-foot { margin-top: 50px; font-size: 36px; max-width: 1560px; line-height: 1.3; }
     #s-donde-corre .dc { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
@@ -233,49 +233,55 @@ uv run sesiones/01/lab-tokens/tokens.py ruta/a/tu.csv</pre>
         <div class="t-label">De tu modelo a los de otros</div>
         <h2 class="t-title">Mismo objetivo, otra escala</h2>
         <div class="mo">
-          <div><div class="t-label">Tu modelo de sumas</div><div class="big">0.79 M</div><p>parámetros · entrenado en 4 minutos en tu laptop · <span class="mono">out-sumas/ckpt.pt</span>, 3 MB</p></div>
-          <div data-step="1"><div class="t-label accent">Inkling 2 Mini · Thinking Machines</div><div class="big">26.4 B</div><p>parámetros (3.4 B activos por token) · pesos abiertos, publicado el 20 nov 2026 · ~20 GB</p></div>
+          <div><div class="t-label">Tu modelo de sumas</div><div class="big">0.79 M</div><p>parámetros · lo entrenaste tú · <span class="mono">ckpt.pt</span> de 3 MB</p></div>
+          <div data-step="1"><div class="t-label accent">qwen3:1.7b · en tu laptop</div><div class="big">1.7 B</div><p>parámetros · pesos abiertos, cuantizado a 4 bits · 1.4 GB</p></div>
+          <div data-step="2"><div class="t-label">Por API · con tu llave</div><div class="big">¿?</div><p>gpt-6-luna, claude-haiku-5-5 · tamaño no público · pagas por token</p></div>
         </div>
-        <p class="mo-foot" data-step="2">"Pesos abiertos" es eso: el mismo tipo de archivo que tu <span class="mono">ckpt.pt</span>, que cualquiera puede descargar y correr.</p>
-        <div class="cite foot">Thinking Machines Lab, "Introducing Inkling 2 Mini" · ficha en Hugging Face: thinkingmachines/Inkling-2-Mini</div>`,
+        <p class="mo-foot" data-step="3"><em>Cuantizar</em>: guardar cada peso en 4 bits en vez de 16. Cabe en tu laptop y pierde algo de calidad. Va a ser un mal modelo, y eso está bien: lo vamos a medir.</p>
+        <div class="cite foot">ollama.com/library/qwen3 · tamaños de descarga de Ollama</div>`,
       notes: `
         <p>Hasta ahora usamos un modelo que entrenamos nosotros: 790 mil parámetros, cuatro minutos, un archivo de tres megas. Para el resto del día vamos a usar modelos que entrenó alguien más.</p>
         <p class="dir">[Clic.]</p>
-        <p>El que vamos a usar es Inkling 2 Mini, de Thinking Machines, que salió ayer. Veintiséis mil millones de parámetros, aunque solo usa unos tres mil cuatrocientos millones por token, porque es una mezcla de expertos. Y es de pesos abiertos.</p>
+        <p>El que todos pueden correr en su laptop es qwen3 de 1.7 mil millones de parámetros. Es de pesos abiertos: el mismo tipo de archivo que su ckpt.pt, solo que entrenado por Alibaba con muchísimo más texto. Y pesa 1.4 gigas, porque viene cuantizado.</p>
         <p class="dir">[Clic.]</p>
-        <p>¿Qué significa pesos abiertos? Exactamente lo que ustedes tienen en la carpeta out-sumas: el archivo con los pesos entrenados. Solo que este pesa unos veinte gigas y costó muchísimo más entrenarlo. Como es un archivo, lo pueden correr en un servidor de alguien más o en su propia máquina. Esas son las dos opciones.</p>`,
+        <p>Del otro lado están los modelos por API, como gpt-6-luna de OpenAI o Claude Haiku 5.5 de Anthropic. No sabemos cuánto miden; pagamos por token y corren en sus servidores.</p>
+        <p class="dir">[Clic.]</p>
+        <p>¿Qué es cuantizar? Cada peso del modelo normalmente se guarda en 16 bits. Cuantizar a 4 bits es guardarlo con menos precisión: el archivo queda cuatro veces más chico y el modelo pierde algo de calidad. qwen3 de 1.7 cuantizado va a ser un mal modelo para contestar preguntas de datos. Y eso está perfecto: es un instrumento, y lo vamos a medir junto con los de API.</p>`,
     },
     {
       id: 'donde-corre',
-      title: 'Remoto o local',
+      title: 'Local o con tu llave',
       time: 240,
       particles: { shape: 'split', opacity: 0.14 },
       html: `
-        <div class="t-label">Dónde corre el modelo · copia .env.ejemplo a .env y elige una opción</div>
-        <h2 class="t-title" style="margin-bottom:28px">Remoto o en tu laptop</h2>
+        <div class="t-label">Dónde corre el modelo · copia .env.example a .env y elige una opción</div>
+        <h2 class="t-title" style="margin-bottom:28px">En tu laptop, o con tu llave</h2>
         <div class="dc">
           <div>
-            <div class="t-label accent">A · Remoto · OpenRouter</div>
-<pre class="code">LLM_BASE_URL=https://openrouter.ai/api/v1
-LLM_MODEL=thinkingmachines/inkling-2-mini
-LLM_API_KEY=tu-llave</pre>
-            <ul class="bullets t-small"><li>Llave en openrouter.ai; pagas por token.</li><li>Tus datos salen de tu máquina.</li></ul>
+            <div class="t-label accent">A · Local · Ollama · por defecto</div>
+<pre class="code">ollama pull qwen3:1.7b
+<span class="c"># .env</span>
+LLM_BASE_URL=http://localhost:11434/v1
+LLM_MODEL=qwen3:1.7b</pre>
+            <ul class="bullets t-small"><li>Gratis y tus datos no salen de tu laptop. ollama.com/download</li><li>¿Poca memoria? <span class="mono">qwen3:0.6b</span>, 523 MB.</li></ul>
           </div>
           <div data-step="1">
-            <div class="t-label accent">B · Local · Ollama</div>
-<pre class="code">ollama pull qwen3:4b
-<span class="c"># y en .env:</span>
-LLM_BASE_URL=http://localhost:11434/v1
-LLM_MODEL=qwen3:4b</pre>
-            <ul class="bullets t-small"><li>Gratis y privado; ollama.com/download.</li><li>8 GB RAM: <span class="mono">qwen3:1.7b</span> · 16 GB: <span class="mono">qwen3:4b</span> · Mac de 32 GB: <span class="mono">inkling-2-mini</span></li></ul>
+            <div class="t-label accent">B · OpenAI · C · Anthropic · tu llave</div>
+<pre class="code"><span class="c"># B</span>
+LLM_BASE_URL=https://api.openai.com/v1
+LLM_MODEL=gpt-6-luna
+<span class="c"># C</span>
+LLM_BASE_URL=https://api.anthropic.com/v1
+LLM_MODEL=claude-haiku-5-5</pre>
+            <ul class="bullets t-small"><li>Más capaces; pagas por token.</li><li>Tus datos salen de tu máquina.</li></ul>
           </div>
         </div>`,
       notes: `
-        <p>Dos formas de correr un modelo de alguien más. Las dos hablan el mismo idioma, la API de OpenAI, así que nuestros scripts funcionan igual con cualquiera: solo cambian tres líneas del archivo punto env.</p>
-        <p>Opción A, remoto: OpenRouter, que les da acceso a cientos de modelos con una sola llave. Ahí corre Inkling 2 Mini. Pagan por token, y ojo: sus datos salen de su computadora. Para datos de su trabajo, eso importa.</p>
+        <p>Dos formas de correr un modelo de alguien más. Las dos hablan el mismo idioma, la API de OpenAI, así que nuestros scripts funcionan igual con cualquiera: solo cambian unas líneas del archivo punto env.</p>
+        <p>Opción A, la de todos: local con Ollama. Se instala como cualquier programa, en Windows, Mac o Linux; descargan qwen3 de 1.7 y les levanta un servidor en su propia máquina. Gratis, y sus datos no salen. Si su laptop tiene muy poca memoria, el de 0.6.</p>
         <p class="dir">[Clic.]</p>
-        <p>Opción B, local: Ollama. Se instala como cualquier programa, en Windows, Mac o Linux, descargan un modelo y les levanta un servidor en su propia máquina. Gratis y sus datos no salen. El precio es que en una laptop normal corren modelos más chicos. Inkling 2 Mini necesita una Mac con 32 GB; con 16 GB, qwen3 de 4 mil millones de parámetros; con 8, el de 1.7.</p>
-        <p class="dir">[Ollama y el modelo se descargan ANTES de clase: son gigas y el wifi no aguanta a toda la sala. Quien no lo tenga listo, usa la opción A.]</p>
+        <p>Opción B o C: con su propia llave de OpenAI o de Anthropic, que ya saben sacar de su cuenta. gpt-6-luna o Claude Haiku 5.5. Son mucho más capaces que el modelito local, pero pagan por token y sus datos salen de su computadora. Para datos de su trabajo, eso importa.</p>
+        <p class="dir">[Demostrar en vivo con mi llave: copiar .env.example a .env, activar la opción C, correr una pregunta. Ollama y el modelo se descargan ANTES de clase: el wifi no aguanta a toda la sala.]</p>
         <p>Con eso, el experimento.</p>`,
     },
     {
@@ -292,7 +298,7 @@ LLM_MODEL=qwen3:4b</pre>
       notes: `
         <p>Segundo experimento. Una sola pregunta, veinte veces, mismo modelo, mismo contexto: cincuenta transacciones en el prompt y la pregunta "¿cuál es el ticket promedio de los pagos con tarjeta?"</p>
         <p>Antes de correrlo, noten que la pregunta tiene una trampa: ¿tarjeta es solo crédito, o crédito y débito? En los datos hay TDC y TDD. Esa ambigüedad la vamos a ver en las respuestas.</p>
-        <p class="dir">[Correr en vivo el comando de la lámina con Inkling 2 Mini e ir llenando la cuadrícula en voz alta. Que la sala lo copie: es el mismo comando del lab. Si no hay red, usar la corrida grabada del ensayo.]</p>
+        <p class="dir">[Correr en vivo el comando de la lámina con mi llave (opción B o C) e ir llenando la cuadrícula en voz alta. Que la sala lo copie con su qwen3 local: es el mismo comando del lab. Si no hay red, usar la corrida grabada del ensayo.]</p>
         <p class="dir">[Verdad por código en estas 50 filas: 1,606.24 si tarjeta es TDC y TDD; 985.36 si es solo TDC.]</p>`,
     },
     {
@@ -350,17 +356,17 @@ LLM_MODEL=qwen3:4b</pre>
         <h2 class="t-title">Tres fuentes de variación</h2>
         <div class="pv">
           <div><div class="k">01 · Muestreo</div><h3>La temperatura</h3><p>Con temperatura mayor a 0, el modelo <em>elige al azar</em> entre los tokens probables. Igual que nuestro modelo de transacciones, a 0.8.</p></div>
-          <div data-step="1"><div class="k">02 · El servidor</div><h3>El lote compartido</h3><p>Remoto, tu petición se procesa junto con las de otros. Que un laboratorio sepa arreglarlo no significa que el servicio lo tenga activado.</p></div>
-          <div data-step="2"><div class="k">03 · El razonamiento</div><h3>Piensa antes de contestar</h3><p>Inkling 2 Mini genera cientos de tokens antes de la respuesta. Un token distinto al principio cambia todo el camino.</p></div>
+          <div data-step="1"><div class="k">02 · El servidor</div><h3>El lote compartido</h3><p>Por API, tu petición se procesa junto con las de otros. Y algunos modelos ya ni aceptan temperatura 0.</p></div>
+          <div data-step="2"><div class="k">03 · El razonamiento</div><h3>Piensa antes de contestar</h3><p>qwen3 y los modelos de API generan cientos de tokens antes de la respuesta. Un token distinto al principio cambia todo el camino.</p></div>
         </div>
         <p class="pv-foot" data-step="3">En tu laptop, a temperatura 0 y sin nadie más, suele repetirse. <em>Suele</em>: pruébalo, no lo supongas.</p>`,
       notes: `
         <p>Entonces, ¿por qué varió en nuestra corrida? Tres fuentes.</p>
         <p>Uno, el muestreo. Si no le decimos nada, la API usa una temperatura mayor a cero: el modelo no toma siempre el token más probable, sino que elige al azar entre los probables. Ya lo hicimos hoy: generamos las transacciones a temperatura 0.8, por eso cada fila era distinta.</p>
         <p class="dir">[Clic.]</p>
-        <p>Dos, el servidor. Aunque pongan temperatura cero, en un servicio remoto su petición se procesa en lote con las de otros usuarios, y ya vimos que eso cambia los resultados. Detalle curioso: Inkling 2 Mini es de Thinking Machines, el mismo laboratorio que publicó cómo arreglarlo. Pero que sepan cómo no significa que el servicio que ustedes usan lo tenga activado. Eso no se supone: se mide.</p>
+        <p>Dos, el servidor. Aunque pongan temperatura cero, en una API su petición se procesa en lote con las de otros usuarios, y ya vimos que eso cambia los resultados. Y hay algo más: algunos modelos ya ni siquiera los dejan bajar la temperatura. La documentación de Anthropic dice que de Claude 4.7 en adelante cualquier temperatura menor a 1 da error. Nuestro script se los avisa y corre con la temperatura del modelo. Eso no se supone: se mide.</p>
         <p class="dir">[Clic.]</p>
-        <p>Tres, el razonamiento. Inkling 2 Mini piensa antes de contestar: genera cientos de tokens de razonamiento que ustedes no ven. Si uno solo de esos tokens sale distinto, el camino entero cambia, y la respuesta también.</p>
+        <p>Tres, el razonamiento. qwen3, y casi todos los modelos de API de hoy, piensan antes de contestar: generan cientos de tokens de razonamiento que ustedes no ven. Si uno solo de esos tokens sale distinto, el camino entero cambia, y la respuesta también.</p>
         <p class="dir">[Clic.]</p>
         <p>¿Y en local? En su laptop, con Ollama, a temperatura cero y sin nadie más pidiendo cosas, normalmente sale lo mismo cada vez. Normalmente: otra máquina, otra versión de Ollama o varias peticiones a la vez lo pueden cambiar. Eso es justo lo que van a probar ahora.</p>`,
     },
@@ -375,19 +381,19 @@ LLM_MODEL=qwen3:4b</pre>
         <div class="t-label">Lab · 8 minutos</div>
         <h2 class="t-title">Corre tus 20</h2>
         <div class="lab2">
-<pre class="code"><span class="c"># .env listo: opción A (Inkling 2 Mini en
-# OpenRouter) u opción B (Ollama local)</span>
+<pre class="code"><span class="c"># .env listo: A (qwen3 local), B (OpenAI)
+# o C (Anthropic)</span>
 uv run sesiones/01/lab-veinte/veinte.py --n 20
 
 <span class="c"># ¿y a temperatura 0?</span>
 uv run sesiones/01/lab-veinte/veinte.py --n 20 --temperatura 0</pre>
           <div class="r">
-            <p class="t-small">Anota en el chat: modelo, remoto o local, distintas, consenso y exactitud.</p>
-            <p class="t-small">¿A temperatura 0 quedó en una sola respuesta? ¿Remoto y local se comportan igual?</p>
+            <p class="t-small">Anota en el chat: modelo, local o API, distintas, consenso y exactitud.</p>
+            <p class="t-small">¿A temperatura 0 quedó en una sola respuesta? ¿Tu qwen3 local y el modelo de API se comportan igual?</p>
           </div>
         </div>`,
       notes: `
-        <p>Ocho minutos. Corran el mismo comando que corrí yo, con su opción del punto env: Inkling 2 Mini remoto, o su modelo local en Ollama. Veinte veces, y luego veinte a temperatura cero. Pongan en el chat su modelo, si fue remoto o local, y sus tres números.</p>
+        <p>Ocho minutos. Corran el mismo comando que corrí yo, con su opción del punto env: su qwen3 local, o su llave de OpenAI o Anthropic. Veinte veces, y luego veinte a temperatura cero. Pongan en el chat su modelo, si fue remoto o local, y sus tres números.</p>
         <p class="dir">[Al terminar, armar en voz alta una tabla con 4 o 5 modelos de la sala. Lo usual: modelos distintos, consensos distintos, y alguien con consenso alto y exactitud baja.]</p>
         <p>Ya medimos si contesta lo mismo. Ahora, que conteste en una forma que una máquina pueda leer.</p>`,
     },

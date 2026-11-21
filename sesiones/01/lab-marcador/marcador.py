@@ -17,6 +17,15 @@ RAIZ = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(RAIZ / 'herramientas'))
 import llm  # noqa: E402
 
+vistos_avisos = set()
+
+
+def avisar(r):
+    for a in r.get('avisos', []):
+        if a not in vistos_avisos:
+            vistos_avisos.add(a); print(f'  [aviso] {a}')
+
+
 ap = argparse.ArgumentParser()
 ap.add_argument('--precio-entrada', type=float, default=os.environ.get('LLM_PRECIO_ENTRADA') or None, help='USD por millón de tokens de entrada')
 ap.add_argument('--precio-salida', type=float, default=os.environ.get('LLM_PRECIO_SALIDA') or None, help='USD por millón de tokens de salida')
@@ -40,6 +49,7 @@ for q in dorado:
         r = llm.chat([{'role': 'system', 'content': sistema},
                       {'role': 'user', 'content': f'Tabla de transacciones (CSV):\n{tabla}\n\n{q["pregunta"]}'}],
                      llm.ESQUEMA_RESPUESTA if a.esquema else None)
+        avisar(r)
         v = llm.extraer_valor(r['texto'])
         ok = llm.coincide(v, q['respuesta'])
         vals.append(str(v)); aciertos += ok

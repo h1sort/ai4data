@@ -21,10 +21,9 @@ Producir el análisis se volvió barato. Saber si es verdad, no. En este program
    cd ai4data
    uv sync
    ```
-4. Copia `.env.ejemplo` a `.env` y elige **una** opción:
-   - **Remoto**: una llave de [openrouter.ai](https://openrouter.ai) para usar Inkling 2 Mini.
-   - **Local**: instala [Ollama](https://ollama.com/download) y descarga un modelo según tu RAM: `ollama pull qwen3:1.7b` (8 GB), `ollama pull qwen3:4b` (16 GB) o `ollama pull inkling-2-mini` (Mac de 32 GB).
-5. Prueba que todo funciona: `uv run sesiones/01/lab-tokens/tokens.py`
+4. Instala [Ollama](https://ollama.com/download) y descarga el modelo local del curso: `ollama pull qwen3:1.7b` (1.4 GB, cuantizado a 4 bits; corre en casi cualquier laptop). Si tu máquina tiene muy poca memoria: `ollama pull qwen3:0.6b` (523 MB).
+5. Copia `.env.example` a `.env`. Por defecto usa tu qwen3 local. Si prefieres no correr nada local, activa la opción de tu llave de OpenAI (`gpt-6-luna`) o de Anthropic (`claude-haiku-5-5`).
+6. Prueba que todo funciona: `uv run sesiones/01/lab-tokens/tokens.py`
 
 Todos los comandos del curso se corren desde la carpeta `ai4data` con `uv run`, en una sola línea: funcionan igual en Windows (PowerShell o cmd), macOS y Linux.
 
@@ -46,7 +45,7 @@ Todos los comandos del curso se corren desde la carpeta `ai4data` con `uv run`, 
 | 01 · El LLM como instrumento de medición en datos | [h1sort.com/ai4data/01](https://h1sort.com/ai4data/01/) | [sesiones/01](sesiones/01/) |
 
 - `caso/`: los datos del caso (comercio ficticio) y el set dorado, con cada respuesta verificada en Python y SQL.
-- `herramientas/`: cliente mínimo para cualquier API compatible con OpenAI (OpenAI, OpenRouter, Ollama) y el script que publica la copia web.
+- `herramientas/`: cliente mínimo para cualquier API compatible con OpenAI (Ollama, OpenAI, Anthropic) y el script que publica la copia web.
 - `web/`: la fuente de [h1sort.com/ai4data](https://h1sort.com/ai4data/). La copia del sitio vive en h1sort-website; se actualiza con `herramientas/publicar.py`.
 
 El material de las siguientes sesiones se irá publicando aquí.

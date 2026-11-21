@@ -99,7 +99,8 @@ uv run sesiones/01/lab-marcador/marcador.py
         </div>`,
       notes: `
         <p>Quince minutos. Este script le da al modelo la tabla completa en el prompt, quinientas filas, unos dieciocho mil tokens, y le hace cada pregunta del set dorado tres veces.</p>
-        <p>Los precios son los de su proveedor y su modelo: para Inkling 2 Mini, entren a su página en OpenRouter y copien a su punto env el precio de entrada y de salida por millón de tokens. Si usan Ollama local, pongan cero y fíjense en la latencia.</p>
+        <p>Los precios son los de su proveedor y su modelo: si usan su llave de OpenAI o Anthropic, copien a su punto env el precio de entrada y de salida por millón de tokens de la página de precios. Con qwen3 local ya vienen en cero: fíjense en la latencia.</p>
+        <p class="dir">[Correr yo también el marcador con mi llave, para que la sala compare su qwen3 local contra un modelo de API.]</p>
         
         <p class="dir">[Mientras corren: pasear por el chat. Lo esperable: los conteos simples salen bien; la suma de marzo, el porcentaje de SPEI y el cliente que más gastó fallan, porque son aritmética sobre muchas filas. Exactamente lo que vimos con nanoGPT.]</p>
         <p>Al terminar, súbanlo a su fork del repo: es su entregable de hoy.</p>`,
@@ -202,8 +203,8 @@ uv run sesiones/01/lab-marcador/marcador.py
           <li><b>DDIA</b>: Martin Kleppmann, Designing Data-Intensive Applications, O'Reilly, 2017, 616 páginas. Tokens por libro: estimación con ~3 páginas por cada mil tokens.</li>
           <li><b>No determinismo a temperatura 0</b>: Horace He y Thinking Machines Lab, "Defeating Nondeterminism in LLM Inference", 10 sep 2025. thinkingmachines.ai</li>
           <li><b>Salidas estructuradas</b>: OpenAI, "Introducing Structured Outputs in the API", 6 ago 2024; JSON Schema, json-schema.org.</li>
-          <li><b>Inkling 2 Mini</b>: Thinking Machines Lab, "Introducing Inkling 2 Mini", 20 nov 2026; ficha en Hugging Face (thinkingmachines/Inkling-2-Mini) y en OpenRouter (thinkingmachines/inkling-2-mini).</li>
-          <li><b>Modelos locales</b>: Ollama, ollama.com/library (qwen3, inkling-2-mini).</li>
+          <li><b>Modelos locales</b>: Ollama, ollama.com/library/qwen3: qwen3:1.7b (1.4 GB, Q4_K_M) y qwen3:0.6b (523 MB).</li>
+          <li><b>Modelos por API</b>: OpenAI, gpt-6-luna (developers.openai.com/docs/models); Anthropic, claude-haiku-5-5 por su endpoint compatible con OpenAI (platform.claude.com/docs, "OpenAI SDK compatibility"), donde Claude 4.7 y posteriores rechazan temperaturas menores a 1.</li>
           <li><b>Caso y set dorado</b>: datos sintéticos generados para el programa. caso/generar_caso.py.</li>
           <li><b>Jev</b>: TypeSafe; detalle y fuentes en la sesión 02.</li>
         </ol>`,
