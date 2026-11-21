@@ -12,7 +12,7 @@ from pathlib import Path
 
 DECK = Path(__file__).resolve().parents[1]
 REPO = DECK.parent
-SOURCES = ['index.html', 'styles.css', 'particles.js', 'engine.js', 'acts']
+SOURCES = ['index.html', 'styles.css', 'particles.js', 'engine.js', 'timer.js', 'acts']
 NOTES = re.compile(r'\n[ \t]*notes:\s*`(?:\\.|[^`\\])*`,?')
 
 ap = argparse.ArgumentParser()

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """¿El modelo suma o recuerda? Evalúa el checkpoint de sumas en tres grupos.
 
-Uso: python evaluar_sumas.py <ruta/a/nanoGPT> [n=500]
+Uso (desde la raíz del repo): uv run sesiones/01/lab-nanogpt/evaluar_sumas.py [--n 500] [--nano ruta/a/nanoGPT]
 
 - vistos:  pares a+b que sí estuvieron en el entrenamiento
 - ocultos: pares de 0–99 que nunca vio (mismo rango, otra combinación)
@@ -10,12 +10,15 @@ Uso: python evaluar_sumas.py <ruta/a/nanoGPT> [n=500]
 Decodificación greedy (siempre el carácter más probable): el modelo contesta lo
 mismo cada vez, así que el error no es mala suerte del muestreo.
 """
-import pickle, random, sys
+import argparse, pickle, random, sys
 from pathlib import Path
 import torch
 
-nano = Path(sys.argv[1] if len(sys.argv) > 1 else '../nanoGPT').resolve()
-N = int(sys.argv[2]) if len(sys.argv) > 2 else 500
+ap = argparse.ArgumentParser()
+ap.add_argument('--n', type=int, default=500)
+ap.add_argument('--nano', type=Path, default=Path(__file__).resolve().parents[4] / 'nanoGPT')
+args = ap.parse_args()
+nano, N = args.nano.resolve(), args.n
 sys.path.insert(0, str(nano))
 from model import GPT, GPTConfig  # noqa: E402
 

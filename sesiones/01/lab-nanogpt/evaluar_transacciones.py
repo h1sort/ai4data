@@ -1,20 +1,23 @@
 #!/usr/bin/env python3
 """¿Las filas que inventa el modelo serían aceptadas por un sistema real?
 
-Uso: python evaluar_transacciones.py <ruta/a/nanoGPT> [n=300]
+Uso (desde la raíz del repo): uv run sesiones/01/lab-nanogpt/evaluar_transacciones.py [--n 300] [--nano ruta/a/nanoGPT]
 
 Genera n filas con el checkpoint de transacciones (temperatura 0.8, como
 sample.py) y revisa cada una contra el catálogo y las reglas del negocio:
 7 columnas, cliente y comercio existen, fecha válida dentro del periodo,
 cantidad 1–5, y total = cantidad × precio_unitario.
 """
-import csv, io, json, pickle, sys
+import argparse, csv, io, json, pickle, sys
 from datetime import date
 from pathlib import Path
 import torch
 
-nano = Path(sys.argv[1] if len(sys.argv) > 1 else '../nanoGPT').resolve()
-N = int(sys.argv[2]) if len(sys.argv) > 2 else 300
+ap = argparse.ArgumentParser()
+ap.add_argument('--n', type=int, default=300)
+ap.add_argument('--nano', type=Path, default=Path(__file__).resolve().parents[4] / 'nanoGPT')
+args = ap.parse_args()
+nano, N = args.nano.resolve(), args.n
 sys.path.insert(0, str(nano))
 from model import GPT, GPTConfig  # noqa: E402
 

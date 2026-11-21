@@ -25,6 +25,11 @@
     #s-tokens-fila .tf .big { font-size: 104px; font-weight: 500; letter-spacing: -0.03em; line-height: 1; margin: 14px 0 10px; }
     #s-tokens-fila .tf .d { font-size: 28px; color: var(--dim); line-height: 1.3; }
 
+    #s-ddia .dd-svg { position: absolute; left: var(--pad-x); top: 190px; }
+    #s-ddia .bk rect { fill: #000; stroke: var(--fg); stroke-width: 2; }
+    #s-ddia .bk text { fill: var(--dim); font-family: var(--mono); font-size: 22px; letter-spacing: 0.08em; }
+    #s-ddia .dd-cap { position: absolute; top: 778px; width: 440px; font-size: 26px; color: var(--dim); text-align: center; margin-left: 0; }
+    #s-ddia .dd-cap b { display: block; font-size: 40px; font-weight: 500; color: var(--fg); margin-top: 4px; }
     #s-tokens-costo .f { font-size: 72px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.2; margin: 40px 0 50px; }
     #s-tokens-costo .f .op { color: var(--faint); font-weight: 400; margin: 0 22px; }
     #s-tokens-costo .live { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
@@ -38,11 +43,21 @@
     #s-no-sumes pre.code { font-size: 26px; }
 
     .lab2 { display: grid; grid-template-columns: 1.2fr 1fr; gap: 56px; }
-    .lab2 pre.code { font-size: 24px; line-height: 1.55; }
+    .lab2 pre.code { font-size: 22px; line-height: 1.55; }
     .lab2 pre.code .c { color: var(--faint); }
     .lab2 .r .t-small { color: var(--dim); }
 
-    #s-veinte .vq { font-size: 58px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; max-width: 1500px; margin: 26px 0 50px; }
+    #s-modelos-de-otros .mo { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; margin-top: 10px; }
+    #s-modelos-de-otros .mo > div { border-top: 3px solid var(--fg); padding-top: 20px; }
+    #s-modelos-de-otros .mo .big { font-size: 130px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; margin: 16px 0 12px; }
+    #s-modelos-de-otros .mo p { font-size: 30px; color: var(--dim); line-height: 1.35; margin: 0; }
+    #s-modelos-de-otros .mo-foot { margin-top: 50px; font-size: 36px; max-width: 1560px; line-height: 1.3; }
+    #s-donde-corre .dc { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+    #s-donde-corre pre.code { font-size: 22px; line-height: 1.55; margin: 14px 0 18px; }
+    #s-donde-corre pre.code .c { color: var(--faint); }
+    #s-donde-corre .bullets li { margin-bottom: 10px; }
+    #s-veinte .vq { font-size: 54px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; max-width: 1500px; margin: 22px 0 26px; }
+    #s-veinte .vcmd { font-size: 30px; display: inline-block; margin: 0 0 34px; padding: 14px 28px; }
     #s-veinte .vgrid { display: grid; grid-template-columns: repeat(10, 120px); gap: 18px; }
     #s-veinte .vgrid span { height: 86px; border: 2px dashed var(--faint); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 26px; color: var(--faint); }
 
@@ -59,6 +74,12 @@
     #s-temperatura-cero .tc .d { font-size: 29px; color: var(--dim); line-height: 1.3; }
     #s-temperatura-cero .why { margin-top: 56px; font-size: 36px; max-width: 1560px; line-height: 1.35; }
 
+    #s-por-que-varia .pv { display: grid; grid-template-columns: repeat(3, 1fr); gap: 44px; margin-top: 10px; }
+    #s-por-que-varia .pv > div { border-top: 3px solid var(--fg); padding-top: 20px; }
+    #s-por-que-varia .pv .k { font-family: var(--mono); font-size: 22px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
+    #s-por-que-varia .pv h3 { font-size: 44px; font-weight: 500; margin: 14px 0 14px; letter-spacing: -0.01em; }
+    #s-por-que-varia .pv p { font-size: 29px; color: var(--dim); line-height: 1.35; margin: 0; }
+    #s-por-que-varia .pv-foot { margin-top: 46px; font-size: 36px; line-height: 1.3; max-width: 1560px; }
     #s-contrato .ct { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
     #s-contrato pre.code { font-size: 24px; line-height: 1.5; }
     #s-contrato pre.code .k { color: var(--accent); }
@@ -99,18 +120,39 @@
         <h2 class="t-title" style="margin-bottom:28px">Cada fila cuesta ~37 tokens</h2>
         <div class="row">${tk(['TX', '-', '003', '04', ',', '202', '6', '-', '01', '-', '01', ',', 'CLI', '-', '004', '9', ',A', 'bar', 'ro', 'tes', '·La', '·Esper', 'anza', ',T', 'DD', ',', '1', ',', '43', '.', '00', ',', '43', '.', '00', '↵'])}</div>
         <div class="tf">
-          <div data-step="1"><div class="t-label">Ventana de 200 mil</div><div class="big">~5,400</div><div class="d">filas, sin contar instrucciones ni respuesta</div></div>
-          <div data-step="2"><div class="t-label">Ventana de 1 millón</div><div class="big">~26,800</div><div class="d">filas, en el mejor caso</div></div>
+          <div data-step="1"><div class="t-label">Ventana de 200 mil</div><div class="big">~5,450</div><div class="d">filas, sin contar instrucciones ni respuesta</div></div>
+          <div data-step="2"><div class="t-label">Ventana de 1 millón</div><div class="big">~27,300</div><div class="d">filas, en el mejor caso</div></div>
           <div data-step="3"><div class="t-label">1 millón de filas</div><div class="big accent">37 M</div><div class="d">tokens: no cabe en ninguna ventana</div></div>
         </div>`,
       notes: `
-        <p>Esta es la primera fila del caso que vamos a usar hoy: treinta y seis tokens, y estos son los cortes reales. Fíjense en la coma: se pega a la A de Abarrotes y a la T de TDD. Medí las quinientas filas: de 34 a 40, 37 en promedio.</p>
+        <p>Esta es la primera fila del caso que vamos a usar hoy: treinta y seis tokens, y estos son los cortes reales. Fíjense en la coma: se pega a la A de Abarrotes y a la T de TDD. Medí las quinientas filas: de 34 a 40, casi 37 en promedio.</p>
         <p class="dir">[Clic.]</p>
-        <p>Con una ventana de contexto de 200 mil tokens caben unas cinco mil cuatrocientas filas, sin contar las instrucciones ni la respuesta.</p>
+        <p>Con una ventana de contexto de 200 mil tokens caben unas cinco mil cuatrocientas cincuenta filas, sin contar las instrucciones ni la respuesta.</p>
         <p class="dir">[Clic.]</p>
-        <p>Con una ventana de un millón, unas veintiséis mil ochocientas, en el mejor caso. Y ya vimos en el curso gratuito que mientras más llenas la ventana, peor atención.</p>
+        <p>Con una ventana de un millón, unas veintisiete mil trescientas, en el mejor caso. Y ya vimos en el curso gratuito que mientras más llenas la ventana, peor atención.</p>
         <p class="dir">[Clic.]</p>
         <p>Una tabla de un millón de filas, que en un banco es una tabla chica, son 37 millones de tokens. No cabe. Y aunque cupiera, hay que pagarla.</p>`,
+    },
+    {
+      id: 'ddia',
+      title: '¿Cuánto es una ventana?',
+      time: 120,
+      particles: { shape: 'scatter', opacity: 0.1 },
+      html: `
+        <div class="t-label">¿Cuánto es una ventana de contexto? · estimación</div>
+        <h2 class="t-title" style="margin-bottom:0">Medido en <em>Designing Data-Intensive Applications</em></h2>
+        <svg class="dd-svg" width="1680" height="570" viewBox="0 0 1680 570"><line class="ln-hair" x1="0" y1="560" x2="1680" y2="560"/><g><g class="bk" transform="translate(69.0 510)"><rect width="360" height="44" rx="4"/><text x="18" y="30">DDIA · Kleppmann</text></g></g><g data-step="1"><g class="bk" transform="translate(649.0 510)"><rect width="360" height="44" rx="4"/><text x="18" y="30">DDIA · Kleppmann</text></g><g class="bk" transform="translate(663.0 460)"><rect width="360" height="44" rx="4"/><text x="18" y="30">DDIA · Kleppmann</text></g><g class="bk" transform="translate(654.0 410)"><rect width="360" height="44" rx="4"/><text x="18" y="30">DDIA · Kleppmann</text></g><g class="bk" transform="translate(668.0 360)"><rect width="360" height="44" rx="4"/><text x="18" y="30">DDIA · Kleppmann</text></g><g class="bk" transform="translate(659.0 310)"><rect width="360" height="44" rx="4"/><text x="18" y="30">DDIA · Kleppmann</text></g></g><g data-step="2"><g class="bk" transform="translate(1229.0 510)"><rect width="360" height="44" rx="4"/><text x="18" y="30">DDIA · Kleppmann</text></g><g class="bk" transform="translate(1243.0 460)"><rect width="360" height="44" rx="4"/><text x="18" y="30">DDIA · Kleppmann</text></g><g class="bk" transform="translate(1234.0 410)"><rect width="360" height="44" rx="4"/><text x="18" y="30">DDIA · Kleppmann</text></g><g class="bk" transform="translate(1248.0 360)"><rect width="360" height="44" rx="4"/><text x="18" y="30">DDIA · Kleppmann</text></g><g class="bk" transform="translate(1239.0 310)"><rect width="360" height="44" rx="4"/><text x="18" y="30">DDIA · Kleppmann</text></g><g class="bk" transform="translate(1230.0 260)"><rect width="360" height="44" rx="4"/><text x="18" y="30">DDIA · Kleppmann</text></g><g class="bk" transform="translate(1244.0 210)"><rect width="360" height="44" rx="4"/><text x="18" y="30">DDIA · Kleppmann</text></g><g class="bk" transform="translate(1235.0 160)"><rect width="360" height="44" rx="4"/><text x="18" y="30">DDIA · Kleppmann</text></g><g class="bk" transform="translate(1249.0 110)"><rect width="360" height="44" rx="4"/><text x="18" y="30">DDIA · Kleppmann</text></g><g class="bk" transform="translate(1240.0 60)"><rect width="360" height="44" rx="4"/><text x="18" y="30">DDIA · Kleppmann</text></g><g class="bk" transform="translate(1231.0 10)"><rect width="360" height="44" rx="4"/><text x="18" y="30">DDIA · Kleppmann</text></g></g></svg>
+        <div class="dd-cap" style="left:80px">200 mil tokens<b>≈ 1 DDIA</b></div>
+        <div class="dd-cap" data-step="1" style="left:660px">1 millón de tokens<b>≈ 5 DDIAs</b></div>
+        <div class="dd-cap" data-step="2" style="left:1240px">Tu tabla de 1 millón de filas<b class="accent">≈ 180 DDIAs</b></div>
+        <div class="cite foot">DDIA: 616 páginas (O'Reilly, 2017). Regla de dedo: ~3 páginas por cada mil tokens → ~200 mil tokens por libro.</div>`,
+      notes: `
+        <p>Para que se den una idea de qué tan grande es una ventana de contexto, la medí en la unidad que todos los de datos conocemos: el Designing Data-Intensive Applications de Kleppmann. Son 616 páginas. Con la regla de dedo de unas tres páginas por cada mil tokens, el libro completo son unos doscientos mil tokens. Es una estimación, no lo tokenicé.</p>
+        <p>Una ventana de doscientos mil tokens: un DDIA.</p>
+        <p class="dir">[Clic.]</p>
+        <p>Una ventana de un millón: cinco DDIAs apilados. Imagínense pedirle a alguien que se lea cinco DDIAs y luego le preguntan algo de la página 2,000.</p>
+        <p class="dir">[Clic.]</p>
+        <p>Y una tabla de un millón de filas, treinta y siete millones de tokens: unos ciento ochenta DDIAs. No caben en la lámina. Y no caben en ningún modelo. Ahora, cuánto cuesta.</p>`,
     },
     {
       id: 'tokens-costo',
@@ -159,15 +201,15 @@ GROUP BY metodo;</pre></div>
       label: 'Lab · 4 min',
       particles: { shape: 'swarm', opacity: 0.12 },
       html: `
+        ${Timer.html(4)}
         <div class="t-label">Lab · 4 minutos</div>
         <h2 class="t-title">Tokeniza tus propios datos</h2>
         <div class="lab2">
-<pre class="code">cd ai4data/sesiones/01/lab-tokens
-npm install
-node tokens.mjs tu_archivo.csv
+<pre class="code"><span class="c"># los ejemplos de la lámina y el caso</span>
+uv run sesiones/01/lab-tokens/tokens.py
 
-<span class="c"># o sin archivo: los ejemplos de la lámina</span>
-node tokens.mjs</pre>
+<span class="c"># tu propio CSV</span>
+uv run sesiones/01/lab-tokens/tokens.py ruta/a/tu.csv</pre>
           <div class="r">
             <p class="t-small">Usa un CSV de tu trabajo, <strong>sin datos personales</strong>.</p>
             <p class="t-small">Anota en el chat: tokens por fila y cuántas filas caben en 200 mil.</p>
@@ -183,6 +225,60 @@ node tokens.mjs</pre>
 
   Deck.act(4, 'No determinismo', [
     {
+      id: 'modelos-de-otros',
+      title: 'De tu modelo a los de otros',
+      time: 180,
+      particles: { shape: 'two', opacity: 0.15 },
+      html: `
+        <div class="t-label">De tu modelo a los de otros</div>
+        <h2 class="t-title">Mismo objetivo, otra escala</h2>
+        <div class="mo">
+          <div><div class="t-label">Tu modelo de sumas</div><div class="big">0.79 M</div><p>parámetros · entrenado en 4 minutos en tu laptop · <span class="mono">out-sumas/ckpt.pt</span>, 3 MB</p></div>
+          <div data-step="1"><div class="t-label accent">Inkling 2 Mini · Thinking Machines</div><div class="big">26.4 B</div><p>parámetros (3.4 B activos por token) · pesos abiertos, publicado el 20 nov 2026 · ~20 GB</p></div>
+        </div>
+        <p class="mo-foot" data-step="2">"Pesos abiertos" es eso: el mismo tipo de archivo que tu <span class="mono">ckpt.pt</span>, que cualquiera puede descargar y correr.</p>
+        <div class="cite foot">Thinking Machines Lab, "Introducing Inkling 2 Mini" · ficha en Hugging Face: thinkingmachines/Inkling-2-Mini</div>`,
+      notes: `
+        <p>Hasta ahora usamos un modelo que entrenamos nosotros: 790 mil parámetros, cuatro minutos, un archivo de tres megas. Para el resto del día vamos a usar modelos que entrenó alguien más.</p>
+        <p class="dir">[Clic.]</p>
+        <p>El que vamos a usar es Inkling 2 Mini, de Thinking Machines, que salió ayer. Veintiséis mil millones de parámetros, aunque solo usa unos tres mil cuatrocientos millones por token, porque es una mezcla de expertos. Y es de pesos abiertos.</p>
+        <p class="dir">[Clic.]</p>
+        <p>¿Qué significa pesos abiertos? Exactamente lo que ustedes tienen en la carpeta out-sumas: el archivo con los pesos entrenados. Solo que este pesa unos veinte gigas y costó muchísimo más entrenarlo. Como es un archivo, lo pueden correr en un servidor de alguien más o en su propia máquina. Esas son las dos opciones.</p>`,
+    },
+    {
+      id: 'donde-corre',
+      title: 'Remoto o local',
+      time: 240,
+      particles: { shape: 'split', opacity: 0.14 },
+      html: `
+        <div class="t-label">Dónde corre el modelo · copia .env.ejemplo a .env y elige una opción</div>
+        <h2 class="t-title" style="margin-bottom:28px">Remoto o en tu laptop</h2>
+        <div class="dc">
+          <div>
+            <div class="t-label accent">A · Remoto · OpenRouter</div>
+<pre class="code">LLM_BASE_URL=https://openrouter.ai/api/v1
+LLM_MODEL=thinkingmachines/inkling-2-mini
+LLM_API_KEY=tu-llave</pre>
+            <ul class="bullets t-small"><li>Llave en openrouter.ai; pagas por token.</li><li>Tus datos salen de tu máquina.</li></ul>
+          </div>
+          <div data-step="1">
+            <div class="t-label accent">B · Local · Ollama</div>
+<pre class="code">ollama pull qwen3:4b
+<span class="c"># y en .env:</span>
+LLM_BASE_URL=http://localhost:11434/v1
+LLM_MODEL=qwen3:4b</pre>
+            <ul class="bullets t-small"><li>Gratis y privado; ollama.com/download.</li><li>8 GB RAM: <span class="mono">qwen3:1.7b</span> · 16 GB: <span class="mono">qwen3:4b</span> · Mac de 32 GB: <span class="mono">inkling-2-mini</span></li></ul>
+          </div>
+        </div>`,
+      notes: `
+        <p>Dos formas de correr un modelo de alguien más. Las dos hablan el mismo idioma, la API de OpenAI, así que nuestros scripts funcionan igual con cualquiera: solo cambian tres líneas del archivo punto env.</p>
+        <p>Opción A, remoto: OpenRouter, que les da acceso a cientos de modelos con una sola llave. Ahí corre Inkling 2 Mini. Pagan por token, y ojo: sus datos salen de su computadora. Para datos de su trabajo, eso importa.</p>
+        <p class="dir">[Clic.]</p>
+        <p>Opción B, local: Ollama. Se instala como cualquier programa, en Windows, Mac o Linux, descargan un modelo y les levanta un servidor en su propia máquina. Gratis y sus datos no salen. El precio es que en una laptop normal corren modelos más chicos. Inkling 2 Mini necesita una Mac con 32 GB; con 16 GB, qwen3 de 4 mil millones de parámetros; con 8, el de 1.7.</p>
+        <p class="dir">[Ollama y el modelo se descargan ANTES de clase: son gigas y el wifi no aguanta a toda la sala. Quien no lo tenga listo, usa la opción A.]</p>
+        <p>Con eso, el experimento.</p>`,
+    },
+    {
       id: 'veinte',
       title: 'La misma pregunta 20 veces',
       time: 300,
@@ -191,11 +287,12 @@ node tokens.mjs</pre>
         <div class="t-label">Experimento</div>
         <h2 class="t-title" style="margin-bottom:0">La misma pregunta, 20 veces</h2>
         <p class="vq">"Con estas 50 transacciones, ¿cuál es el ticket promedio de los pagos con tarjeta?"</p>
+        <pre class="code vcmd">uv run sesiones/01/lab-veinte/veinte.py --n 20</pre>
         <div class="vgrid">${Array.from({ length: 20 }, (_, i) => `<span>${String(i + 1).padStart(2, '0')}</span>`).join('')}</div>`,
       notes: `
         <p>Segundo experimento. Una sola pregunta, veinte veces, mismo modelo, mismo contexto: cincuenta transacciones en el prompt y la pregunta "¿cuál es el ticket promedio de los pagos con tarjeta?"</p>
         <p>Antes de correrlo, noten que la pregunta tiene una trampa: ¿tarjeta es solo crédito, o crédito y débito? En los datos hay TDC y TDD. Esa ambigüedad la vamos a ver en las respuestas.</p>
-        <p class="dir">[Correr el script en vivo con el modelo de la sala e ir llenando la cuadrícula en voz alta. Si no hay red, usar la corrida grabada del ensayo.]</p>
+        <p class="dir">[Correr en vivo el comando de la lámina con Inkling 2 Mini e ir llenando la cuadrícula en voz alta. Que la sala lo copie: es el mismo comando del lab. Si no hay red, usar la corrida grabada del ensayo.]</p>
         <p class="dir">[Verdad por código en estas 50 filas: 1,606.24 si tarjeta es TDC y TDD; 985.36 si es solo TDC.]</p>`,
     },
     {
@@ -244,30 +341,53 @@ node tokens.mjs</pre>
         <p>La causa: el servidor junta tu petición con las de otros usuarios en un lote, y algunos cálculos dan resultados ligeramente distintos según el tamaño del lote, que depende de la carga del servidor. Ellos lo arreglaron y las mil respuestas salieron idénticas, pero eso es en su servidor. Cuando usan una API de terceros, no lo controlan: lo miden. Eso hacemos ahora.</p>`,
     },
     {
+      id: 'por-que-varia',
+      title: '¿Por qué varía aquí?',
+      time: 180,
+      particles: { shape: 'swarm', opacity: 0.16 },
+      html: `
+        <div class="t-label">Entonces, ¿por qué varió en nuestra corrida?</div>
+        <h2 class="t-title">Tres fuentes de variación</h2>
+        <div class="pv">
+          <div><div class="k">01 · Muestreo</div><h3>La temperatura</h3><p>Con temperatura mayor a 0, el modelo <em>elige al azar</em> entre los tokens probables. Igual que nuestro modelo de transacciones, a 0.8.</p></div>
+          <div data-step="1"><div class="k">02 · El servidor</div><h3>El lote compartido</h3><p>Remoto, tu petición se procesa junto con las de otros. Que un laboratorio sepa arreglarlo no significa que el servicio lo tenga activado.</p></div>
+          <div data-step="2"><div class="k">03 · El razonamiento</div><h3>Piensa antes de contestar</h3><p>Inkling 2 Mini genera cientos de tokens antes de la respuesta. Un token distinto al principio cambia todo el camino.</p></div>
+        </div>
+        <p class="pv-foot" data-step="3">En tu laptop, a temperatura 0 y sin nadie más, suele repetirse. <em>Suele</em>: pruébalo, no lo supongas.</p>`,
+      notes: `
+        <p>Entonces, ¿por qué varió en nuestra corrida? Tres fuentes.</p>
+        <p>Uno, el muestreo. Si no le decimos nada, la API usa una temperatura mayor a cero: el modelo no toma siempre el token más probable, sino que elige al azar entre los probables. Ya lo hicimos hoy: generamos las transacciones a temperatura 0.8, por eso cada fila era distinta.</p>
+        <p class="dir">[Clic.]</p>
+        <p>Dos, el servidor. Aunque pongan temperatura cero, en un servicio remoto su petición se procesa en lote con las de otros usuarios, y ya vimos que eso cambia los resultados. Detalle curioso: Inkling 2 Mini es de Thinking Machines, el mismo laboratorio que publicó cómo arreglarlo. Pero que sepan cómo no significa que el servicio que ustedes usan lo tenga activado. Eso no se supone: se mide.</p>
+        <p class="dir">[Clic.]</p>
+        <p>Tres, el razonamiento. Inkling 2 Mini piensa antes de contestar: genera cientos de tokens de razonamiento que ustedes no ven. Si uno solo de esos tokens sale distinto, el camino entero cambia, y la respuesta también.</p>
+        <p class="dir">[Clic.]</p>
+        <p>¿Y en local? En su laptop, con Ollama, a temperatura cero y sin nadie más pidiendo cosas, normalmente sale lo mismo cada vez. Normalmente: otra máquina, otra versión de Ollama o varias peticiones a la vez lo pueden cambiar. Eso es justo lo que van a probar ahora.</p>`,
+    },
+    {
       id: 'lab-veinte',
       title: 'Lab · 20 corridas',
       time: 480,
       label: 'Lab · 8 min',
       particles: { shape: 'swarm', opacity: 0.12 },
       html: `
+        ${Timer.html(8)}
         <div class="t-label">Lab · 8 minutos</div>
         <h2 class="t-title">Corre tus 20</h2>
         <div class="lab2">
-<pre class="code"><span class="c"># cualquier API compatible con OpenAI:
-# OpenAI, OpenRouter u Ollama local</span>
-export LLM_BASE_URL=http://localhost:11434/v1
-export LLM_MODEL=qwen3:4b
-export LLM_API_KEY=...   <span class="c"># si aplica</span>
+<pre class="code"><span class="c"># .env listo: opción A (Inkling 2 Mini en
+# OpenRouter) u opción B (Ollama local)</span>
+uv run sesiones/01/lab-veinte/veinte.py --n 20
 
-cd ai4data/sesiones/01/lab-veinte
-python veinte.py --n 20</pre>
+<span class="c"># ¿y a temperatura 0?</span>
+uv run sesiones/01/lab-veinte/veinte.py --n 20 --temperatura 0</pre>
           <div class="r">
-            <p class="t-small">Anota en el chat: modelo, distintas, consenso y exactitud.</p>
-            <p class="t-small">Corre otra vez con <span class="mono">--temperatura 0</span>. ¿Cambia?</p>
+            <p class="t-small">Anota en el chat: modelo, remoto o local, distintas, consenso y exactitud.</p>
+            <p class="t-small">¿A temperatura 0 quedó en una sola respuesta? ¿Remoto y local se comportan igual?</p>
           </div>
         </div>`,
       notes: `
-        <p>Ocho minutos. El script funciona con cualquier API compatible con OpenAI: OpenAI directo, OpenRouter, o un modelo local con Ollama si no quieren gastar. Corran veinte veces y pongan en el chat su modelo y sus tres números.</p>
+        <p>Ocho minutos. Corran el mismo comando que corrí yo, con su opción del punto env: Inkling 2 Mini remoto, o su modelo local en Ollama. Veinte veces, y luego veinte a temperatura cero. Pongan en el chat su modelo, si fue remoto o local, y sus tres números.</p>
         <p class="dir">[Al terminar, armar en voz alta una tabla con 4 o 5 modelos de la sala. Lo usual: modelos distintos, consensos distintos, y alguien con consenso alto y exactitud baja.]</p>
         <p>Ya medimos si contesta lo mismo. Ahora, que conteste en una forma que una máquina pueda leer.</p>`,
     },
@@ -334,11 +454,11 @@ python veinte.py --n 20</pre>
       label: 'Lab · 8 min',
       particles: { shape: 'swarm', opacity: 0.12 },
       html: `
+        ${Timer.html(8)}
         <div class="t-label">Lab · 8 minutos</div>
         <h2 class="t-title">La misma pregunta, con esquema</h2>
         <div class="lab2">
-<pre class="code">cd ai4data/sesiones/01/lab-veinte
-python veinte.py --n 20 --esquema</pre>
+<pre class="code">uv run sesiones/01/lab-veinte/veinte.py --n 20 --esquema</pre>
           <div class="r">
             <p class="t-small">¿Bajó el número de respuestas distintas?</p>
             <p class="t-small">¿Qué <span class="mono">definicion</span> usó para "tarjeta"? ¿Siempre la misma?</p>

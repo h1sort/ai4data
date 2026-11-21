@@ -16,47 +16,56 @@ Todo desemboca en el **marcador v0** de cada alumno (exactitud, varianza, costo,
 
 **Frase de cierre:** *El modelo aprendió cómo se ven los datos. Saber si son verdad es trabajo nuestro, y hoy empezamos a medirlo.*
 
-## 2. Guion (≈180 min)
+## 2. Guion (≈192 min: ver recortes abajo)
 
 | # | Acto | id | Contenido | min |
 |---|---|---|---|---|
 | 1 | Apertura | `title` | Título de la sesión | 1 |
-| 2 | | `quien` | who_is_this_dude + QRs | 2 |
+| 2 | | `quien` | who_is_this_dude + QRs (repo con ícono de GitHub, láminas) | 2 |
 | 3 | | `programa` | Curso gratuito vs programa: construir y medir | 3 |
 | 4 | | `marcador` | Los cuatro números del marcador | 3 |
 | 5 | | `hoy` | Mapa de la sesión | 2 |
 | 6 | Repaso | `repaso` | Tres cosas que ya sabemos (clase 3 gratuita) | 5 |
 | 7 | | `pregunta` | ¿Y si el siguiente token es un número? | 2 |
-| 8 | nanoGPT | `nanogpt` | Qué es nanoGPT, por qué este y no nanochat | 3 |
-| 9 | | `experimento` | Dos datasets: sumas y transacciones | 3 |
-| 10 | | `apuesta` | La sala apuesta: vistos, ocultos, 3 cifras | 3 |
-| 11 | | `lab-nanogpt` | Lab: preparar, entrenar, evaluar (25 min) | 28 |
-| 12 | | `perdida` | La curva de pérdida | 3 |
-| 13 | | `sumas` | 92.8% · 92.0% · 0.0% y siempre un número | 6 |
-| 14 | | `filas` | Filas inventadas contra las reglas del negocio | 6 |
-| 15 | | `leccion` | Aprendió cómo se ven los datos, no qué es verdad | 3 |
-| 16 | Pausa | `pausa` | 10 minutos | 10 |
-| 17 | Tokens | `tokens-numeros` | Cómo se parte un número, una fecha, un monto | 6 |
-| 18 | | `tokens-fila` | Una fila del caso ≈ 37 tokens; cuántas caben | 5 |
-| 19 | | `tokens-costo` | Filas × tokens × precio (precio en vivo) | 4 |
-| 20 | | `no-sumes` | El modelo no suma: escribe código | 3 |
-| 21 | | `lab-tokens` | Lab: tokeniza tus propios datos (4 min) | 4 |
-| 22 | No determinismo | `veinte` | La misma pregunta 20 veces | 5 |
-| 23 | | `medir-varianza` | Respuestas distintas y consenso | 5 |
-| 24 | | `temperatura-cero` | Por qué pasa incluso a temperatura 0 | 4 |
-| 25 | | `lab-veinte` | Lab: corre tus 20 (8 min) | 8 |
-| 26 | Salidas estructuradas | `contrato` | JSON Schema como contrato | 6 |
-| 27 | | `forma-verdad` | Forma ✓, verdad ✗ | 4 |
-| 28 | | `lab-esquema` | Lab: la respuesta con esquema (8 min) | 8 |
-| 29 | Marcador v0 | `set-dorado` | Qué es el set dorado | 5 |
-| 30 | | `lab-marcador` | Lab: primera corrida → marcador v0 (15 min) | 15 |
-| 31 | | `plantilla` | Tu marcador v0 | 4 |
-| 32 | Cierre | `entregable` | Lo que entregas hoy | 2 |
-| 33 | | `siguiente` | Sesión 2: elegir modelo (y modelos de decisión) | 2 |
-| 34 | | `gracias` | Cierre y QRs | 1 |
-| 35 | | `fuentes` | Fuentes | — |
+| 8 | | `instrumento` | Termómetro vs LLM: exactitud, precisión, rango, costo. Explica el título | 3 |
+| 9 | nanoGPT | `nanogpt` | Qué es nanoGPT, por qué este y no nanochat | 3 |
+| 10 | | `experimento` | Modelo 1 (sumas) y modelo 2 (transacciones) | 3 |
+| 11 | | `apuesta` | La sala apuesta: vistas, escondidas, 3 cifras | 3 |
+| 12 | | `lab-nanogpt` | Lab con cronómetro: los dos modelos, entrenar e inferencia (25 min) | 28 |
+| 13 | | `perdida` | La curva de pérdida | 3 |
+| 14 | | `sumas` | Modelo 1: 92.8% · 92.0% · 0.0% y siempre un número | 6 |
+| 15 | | `filas` | Modelo 2: entrenar → inferencia → revisar con código | 6 |
+| 16 | | `leccion` | Aprendió cómo se ven los datos, no qué es verdad | 3 |
+| 17 | Pausa | `pausa` | 10 minutos con cronómetro | 10 |
+| 18 | Tokens | `tokens-numeros` | Cómo se parte un número, una fecha, un monto | 6 |
+| 19 | | `tokens-fila` | Una fila del caso ≈ 37 tokens; cuántas caben | 5 |
+| 20 | | `ddia` | 200 mil tokens ≈ 1 DDIA · 1 millón ≈ 5 · tu tabla ≈ 180 | 2 |
+| 21 | | `tokens-costo` | Filas × tokens × precio (precio en vivo) | 4 |
+| 22 | | `no-sumes` | El modelo no suma: escribe código | 3 |
+| 23 | | `lab-tokens` | Lab: tokeniza tus propios datos (4 min) | 4 |
+| 24 | Modelos de otros y no determinismo | `modelos-de-otros` | Tu ckpt de 0.79M vs Inkling 2 Mini (26.4B, pesos abiertos) | 3 |
+| 25 | | `donde-corre` | Remoto (OpenRouter) o local (Ollama): .env | 4 |
+| 26 | | `veinte` | La misma pregunta 20 veces, con el comando en la lámina | 5 |
+| 27 | | `medir-varianza` | Distintas, consenso, exactitud | 5 |
+| 28 | | `temperatura-cero` | 1,000 corridas a temperatura 0 → 80 respuestas | 4 |
+| 29 | | `por-que-varia` | Muestreo, lote compartido, razonamiento; y en local | 3 |
+| 30 | | `lab-veinte` | Lab: tus 20, y a temperatura 0 (8 min) | 8 |
+| 31 | Salidas estructuradas | `contrato` | JSON Schema como contrato | 6 |
+| 32 | | `forma-verdad` | Forma ✓, verdad ✗ | 4 |
+| 33 | | `lab-esquema` | Lab: la respuesta con esquema (8 min) | 8 |
+| 34 | Marcador v0 | `set-dorado` | Qué es el set dorado | 5 |
+| 35 | | `lab-marcador` | Lab: primera corrida → marcador v0 (15 min) | 15 |
+| 36 | | `plantilla` | Tu marcador v0 | 4 |
+| 37 | Cierre | `entregable` | Lo que entregas hoy | 2 |
+| 38 | | `siguiente` | Sesión 2: elegir modelo (y modelos de decisión) | 2 |
+| 39 | | `gracias` | Cierre y QRs | 1 |
+| 40 | | `fuentes` | Fuentes | — |
 
-**Si el tiempo se acorta:** el lab de tokens se vuelve tarea (−4), `temperatura-cero` a 2 min (−2), el lab de esquema se hace en vivo por el profesor (−5). Nunca cortar `apuesta`, `sumas`, `filas` ni `lab-marcador`: son el arco y el entregable.
+**Recortes para quedar en 180:** el lab de tokens se vuelve tarea (−4), `repaso` a 3 min (−2), el lab de esquema lo hace el profesor en vivo con el comando de la lámina (−5), `temperatura-cero` a 2 min (−2). Nunca cortar `apuesta`, `sumas`, `filas` ni `lab-marcador`.
+
+**Cronómetros:** las láminas de lab y la pausa traen un cronómetro (clic en los dígitos para iniciar o pausar; +1 min, +30 s, ↺). Sigue corriendo aunque cambies de lámina.
+
+**Todos los comandos** se corren desde la raíz del repo con `uv run`, en una sola línea: funcionan igual en PowerShell, cmd, macOS y Linux.
 
 ## 3. Fuentes (todo número en lámina necesita una)
 
@@ -65,8 +74,11 @@ Todo desemboca en el **marcador v0** de cada alumno (exactitud, varianza, costo,
   - Sumas: modelo de 0.79M parámetros, 3,000 iteraciones, 4 min 19 s. Pérdida 2.66 → 1.06 (train) / 1.07 (val).
   - `evaluar_sumas.py`, n=500 por grupo, greedy: vistos 92.8%, ocultos 92.0%, 3 cifras 0.0%; responde con un número 100% en los tres. Errores típicos: el acarreo (16+70=76).
   - Transacciones: mismo tamaño, 3,000 iteraciones, 8 min 41 s. Pérdida 4.02 → 0.40. Ver §3.1.
-- **Tokenización**: medición propia con `gpt-tokenizer` (npm), codificaciones o200k_base y cl100k_base, script `lab-tokens/tokens.mjs`. Las dos dan los mismos cortes en todos los ejemplos de la lámina. Fila del caso (`caso/transacciones.csv`, o200k_base): 37.3 tokens en promedio (34–40), encabezado 20; la tabla completa de 500 filas, 18,347 tokens. La primera fila (TX-00304) son 36 tokens; la lámina muestra sus cortes reales.
-- **Filas que caben**: aritmética propia: 200,000 / 37.3 ≈ 5,365 (lámina: ~5,400); 1,000,000 / 37.3 ≈ 26,829 (~26,800); un millón de filas ≈ 37 millones de tokens. Sin contar instrucciones ni respuesta.
+- **Tokenización**: medición propia con `tiktoken` (OpenAI), codificaciones o200k_base y cl100k_base, script `lab-tokens/tokens.py`. Las dos dan los mismos cortes en todos los ejemplos de la lámina. Fila del caso (`caso/transacciones.csv`, o200k_base): 36.7 tokens en promedio (34–40), encabezado 20; la tabla completa de 500 filas, 18,347 tokens. La primera fila (TX-00304) son 36 tokens; la lámina muestra sus cortes reales.
+- **Filas que caben**: `tokens.py`: ~5,456 filas en 200 mil (lámina: ~5,450) y ~27,282 en 1 millón (~27,300); un millón de filas ≈ 37 millones de tokens. Sin contar instrucciones ni respuesta.
+- **DDIA**: Martin Kleppmann, *Designing Data-Intensive Applications*, O'Reilly, marzo 2017, 616 páginas (ficha de O'Reilly; el sitio del autor dice 614). Tokens por libro: **estimación**, no medición: con la regla de ~3 páginas por cada mil tokens (Redis, "context window"), ~205 mil tokens → 200 mil ≈ 1 DDIA, 1 millón ≈ 5, 37 millones ≈ 180.
+- **Inkling 2 Mini**: Thinking Machines Lab, "Introducing Inkling 2 Mini" (20 nov 2026), https://thinkingmachines.ai/news/inkling-2-mini/ : 26.4B parámetros totales, 3.4B activos, ~20 GB, pesos abiertos (Apache 2.0, ficha en Hugging Face `thinkingmachines/Inkling-2-Mini`), en Ollama para Macs con 32 GB o más. En OpenRouter como `thinkingmachines/inkling-2-mini`; el precio no va en lámina (las fuentes no coinciden: $0.08/$0.35 vs $0.10/$0.40 por millón): se copia en vivo de la página del modelo. La página del modelo no dice nada sobre determinismo al servirlo.
+- **Modelos locales**: Ollama, `qwen3:1.7b` (1.4 GB), `qwen3:4b` (2.5 GB), `inkling-2-mini` (~20 GB), según ollama.com/library.
 - **No determinismo a temperatura 0**: Horace He y Thinking Machines Lab, "Defeating Nondeterminism in LLM Inference" (10 sep 2025). https://thinkingmachines.ai/blog/defeating-nondeterminism-in-llm-inference/
 - **Salidas estructuradas**: OpenAI, "Introducing Structured Outputs in the API" (6 ago 2024), https://openai.com/index/introducing-structured-outputs-in-the-api/ ; JSON Schema, https://json-schema.org
 - **Modelos de decisión (adelanto de la sesión 2)**: Jev de TypeSafe; ver `SYLLABUS.md`.
@@ -84,5 +96,8 @@ Primeras 50 filas del caso. Verdad por código: ticket promedio con tarjeta = **
 
 - [x] **Caso v0 y set dorado** (`caso/`): 500 transacciones y 10 preguntas, cada respuesta verificada en Python y SQL. Crece en los siguientes módulos (más tablas, preguntas escondidas para el proyecto final).
 - [x] **Scripts de `lab-veinte/` y `lab-marcador/`** sobre `herramientas/llm.py` (API compatible con OpenAI: OpenAI, OpenRouter, Ollama). Probados contra un servidor simulado; **falta una corrida real** con un modelo, y grabarla como respaldo para `veinte`.
-- [ ] **Checkpoint de respaldo** para quien tenga una laptop lenta (los `ckpt.pt` de sumas y transacciones, ~10 MB cada uno, como release del repo).
+- [x] **Checkpoint de respaldo**: `lab-nanogpt/respaldo/` (solo pesos, ~3 MB cada uno) + `usar_respaldo.py`.
+- [x] **Todo con uv y Python 3.14**, comandos de una línea desde la raíz del repo (sin `$PWD`): probado en Linux; falta probar en una máquina Windows real.
+- [ ] **Corrida real con Inkling 2 Mini** (OpenRouter) de `veinte` y `marcador`, y grabar la de `veinte` como respaldo.
+- [ ] **Mandar a los alumnos la preparación previa** (README de la raíz): uv, clonar, `uv sync`, `.env`, y Ollama + modelo si van a usar local.
 - [ ] Ensayar una vez con cronómetro.

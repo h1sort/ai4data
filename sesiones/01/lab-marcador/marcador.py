@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 """Marcador v0: el modelo contesta el set dorado leyendo la tabla completa en el prompt.
 
-Uso: python marcador.py --precio-entrada 0.15 --precio-salida 0.60 [--k 3] [--esquema]
-     (precios en USD por millón de tokens, de la página de tu proveedor)
+Uso (desde la raíz del repo): uv run sesiones/01/lab-marcador/marcador.py [--k 3] [--esquema]
+
+Precios en USD por millón de tokens, de la página de tu proveedor: en .env como
+LLM_PRECIO_ENTRADA y LLM_PRECIO_SALIDA (0 si usas Ollama), o con --precio-entrada/--precio-salida.
 
 Cada pregunta se hace --k veces. Escribe marcador_v0.json con los cuatro números:
 exactitud, consenso (varianza), costo por respuesta y latencia por respuesta.
 """
-import argparse, json, sys, time
+import argparse, json, os, sys, time
 from collections import Counter
 from pathlib import Path
 
@@ -16,11 +18,14 @@ sys.path.insert(0, str(RAIZ / 'herramientas'))
 import llm  # noqa: E402
 
 ap = argparse.ArgumentParser()
-ap.add_argument('--precio-entrada', type=float, required=True, help='USD por millón de tokens de entrada')
-ap.add_argument('--precio-salida', type=float, required=True, help='USD por millón de tokens de salida')
+ap.add_argument('--precio-entrada', type=float, default=os.environ.get('LLM_PRECIO_ENTRADA') or None, help='USD por millón de tokens de entrada')
+ap.add_argument('--precio-salida', type=float, default=os.environ.get('LLM_PRECIO_SALIDA') or None, help='USD por millón de tokens de salida')
 ap.add_argument('--k', type=int, default=3, help='corridas por pregunta')
 ap.add_argument('--esquema', action='store_true')
 a = ap.parse_args()
+if a.precio_entrada is None or a.precio_salida is None:
+    sys.exit('Faltan los precios: pon LLM_PRECIO_ENTRADA y LLM_PRECIO_SALIDA en .env (0 y 0 si usas Ollama).')
+a.precio_entrada, a.precio_salida = float(a.precio_entrada), float(a.precio_salida)
 
 tabla = (RAIZ / 'caso' / 'transacciones.csv').read_text()
 dorado = [json.loads(l) for l in (RAIZ / 'caso' / 'set_dorado.jsonl').read_text().splitlines()]

@@ -223,3 +223,4 @@ __marimo__/
 node_modules/
 .shots/
 sesiones/*/lab-marcador/marcador_v0.json
+.env

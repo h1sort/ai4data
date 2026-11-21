@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Genera los dos datasets del lab de nanoGPT (sesión 1) en formato de caracteres.
 
-Uso: python preparar_datos.py <ruta/a/nanoGPT>
+Uso (desde la raíz del repo): uv run sesiones/01/lab-nanogpt/preparar_datos.py [ruta/a/nanoGPT]
+
+Por defecto usa ../nanoGPT, es decir, nanoGPT clonado junto a este repo.
 
 Escribe nanoGPT/data/sumas/ y nanoGPT/data/transacciones/ con train.bin, val.bin
 y meta.pkl, igual que data/shakespeare_char de nanoGPT. Semilla fija: todos en el
@@ -18,7 +20,10 @@ from pathlib import Path
 import numpy as np
 
 SEED = 2026
-nano = Path(sys.argv[1] if len(sys.argv) > 1 else '../nanoGPT').resolve()
+RAIZ = Path(__file__).resolve().parents[3]
+nano = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else RAIZ.parent / 'nanoGPT'
+if not (nano / 'train.py').exists():
+    sys.exit(f'No encuentro nanoGPT en {nano}. Clónalo junto a este repo: git clone https://github.com/karpathy/nanoGPT')
 
 
 def guardar(nombre, texto_train, texto_val, extra=None):

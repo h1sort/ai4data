@@ -8,6 +8,26 @@ Producir el análisis se volvió barato. Saber si es verdad, no. En este program
 - **Versión web:** [h1sort.com/ai4data](https://h1sort.com/ai4data/)
 - **Curso introductorio gratuito (pre-requisito):** [h1sort/intro-ai4data-class](https://github.com/h1sort/intro-ai4data-class)
 
+## Antes de la sesión 1 (hazlo en casa: descarga varios GB)
+
+1. Instala **git** y **uv** ([docs.astral.sh/uv](https://docs.astral.sh/uv/getting-started/installation/)). uv instala Python 3.14 por ti.
+2. Clona los dos repos **en la misma carpeta**:
+   ```
+   git clone https://github.com/h1sort/ai4data
+   git clone https://github.com/karpathy/nanoGPT
+   ```
+3. Entra a `ai4data` y prepara el entorno (descarga PyTorch):
+   ```
+   cd ai4data
+   uv sync
+   ```
+4. Copia `.env.ejemplo` a `.env` y elige **una** opción:
+   - **Remoto**: una llave de [openrouter.ai](https://openrouter.ai) para usar Inkling 2 Mini.
+   - **Local**: instala [Ollama](https://ollama.com/download) y descarga un modelo según tu RAM: `ollama pull qwen3:1.7b` (8 GB), `ollama pull qwen3:4b` (16 GB) o `ollama pull inkling-2-mini` (Mac de 32 GB).
+5. Prueba que todo funciona: `uv run sesiones/01/lab-tokens/tokens.py`
+
+Todos los comandos del curso se corren desde la carpeta `ai4data` con `uv run`, en una sola línea: funcionan igual en Windows (PowerShell o cmd), macOS y Linux.
+
 ## Módulos
 
 | | Módulo | Sesiones |

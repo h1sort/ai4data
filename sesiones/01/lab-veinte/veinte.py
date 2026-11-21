@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """La misma pregunta N veces: ¿cuántas respuestas distintas da el modelo?
 
-Uso: python veinte.py [--n 20] [--temperatura 0] [--esquema] [--filas 50]
+Uso (desde la raíz del repo): uv run sesiones/01/lab-veinte/veinte.py [--n 20] [--temperatura 0] [--esquema] [--filas 50]
 
 Mete las primeras --filas transacciones del caso en el prompt y pregunta el ticket
 promedio de los pagos con tarjeta. La pregunta es ambigua a propósito (¿tarjeta es

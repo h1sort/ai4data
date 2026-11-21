@@ -1,6 +1,0 @@
-{
-  "name": "ai4data-lab-tokens",
-  "private": true,
-  "type": "module",
-  "dependencies": { "gpt-tokenizer": "^4.1.2" }
-}

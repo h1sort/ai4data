@@ -1,14 +1,28 @@
-"""Cliente mínimo para cualquier API compatible con OpenAI (OpenAI, OpenRouter, Ollama local…).
+"""Cliente mínimo para cualquier API compatible con OpenAI (OpenRouter, OpenAI, Ollama local…).
 
-Solo biblioteca estándar. Configuración por variables de entorno:
-  LLM_BASE_URL  p. ej. https://api.openai.com/v1 · https://openrouter.ai/api/v1 · http://localhost:11434/v1
-  LLM_MODEL     nombre del modelo en ese proveedor
-  LLM_API_KEY   la llave (Ollama no la necesita)
+Solo biblioteca estándar. Se configura con un archivo .env en la raíz del repo
+(copia .env.ejemplo a .env y edítalo). Las variables de entorno, si existen, ganan:
+  LLM_BASE_URL  https://openrouter.ai/api/v1 · http://localhost:11434/v1 (Ollama) · …
+  LLM_MODEL     thinkingmachines/inkling-2-mini · qwen3:4b · …
+  LLM_API_KEY   la llave del proveedor (Ollama no la necesita)
 """
 import json, os, time, urllib.error, urllib.request
+from pathlib import Path
 
-BASE = os.environ.get('LLM_BASE_URL', 'http://localhost:11434/v1').rstrip('/')
-MODEL = os.environ.get('LLM_MODEL', 'qwen3:4b')
+
+def _leer_env():
+    f = Path(__file__).resolve().parents[1] / '.env'
+    if f.exists():
+        for linea in f.read_text(encoding='utf-8').splitlines():
+            linea = linea.strip()
+            if linea and not linea.startswith('#') and '=' in linea:
+                k, v = linea.split('=', 1)
+                os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+
+
+_leer_env()
+BASE = os.environ.get('LLM_BASE_URL', 'https://openrouter.ai/api/v1').rstrip('/')
+MODEL = os.environ.get('LLM_MODEL', 'thinkingmachines/inkling-2-mini')
 KEY = os.environ.get('LLM_API_KEY', '')
 
 

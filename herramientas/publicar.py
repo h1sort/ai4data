@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Publica la copia web de este repo en h1sort-website.
 
-Uso: python3 herramientas/publicar.py <ruta/a/h1sort-website>
+Uso: uv run herramientas/publicar.py <ruta/a/h1sort-website>
 
 - web/                       -> public/ai4data/       (temario)
 - sesiones/NN/deck (sin notas) -> public/ai4data/NN/  (láminas de cada sesión)
