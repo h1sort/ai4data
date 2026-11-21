@@ -1,0 +1,10 @@
+{"id": "P01", "pregunta": "¿Cuántas transacciones hay en la tabla?", "respuesta": 500, "tipo": "conteo", "sql": "SELECT COUNT(*) FROM t"}
+{"id": "P02", "pregunta": "¿Cuántos clientes distintos aparecen?", "respuesta": 117, "tipo": "conteo", "sql": "SELECT COUNT(DISTINCT cliente) FROM t"}
+{"id": "P03", "pregunta": "¿Cuál es el monto total vendido en marzo de 2026, en MXN?", "respuesta": 74620.0, "tipo": "MXN", "sql": "SELECT ROUND(SUM(total), 2) FROM t WHERE strftime(fecha, '%Y-%m') = '2026-03'"}
+{"id": "P04", "pregunta": "¿Qué comercio vendió el mayor monto total?", "respuesta": "Óptica Visión Clara", "tipo": "texto", "sql": "SELECT comercio FROM t GROUP BY comercio ORDER BY SUM(total) DESC LIMIT 1"}
+{"id": "P05", "pregunta": "¿Cuál es el ticket promedio (total por transacción) de los pagos con tarjeta, crédito o débito, en MXN?", "respuesta": 1291.67, "tipo": "MXN", "sql": "SELECT ROUND(AVG(total), 2) FROM t WHERE metodo IN ('TDC', 'TDD')"}
+{"id": "P06", "pregunta": "¿Cuántas transacciones se pagaron en efectivo?", "respuesta": 120, "tipo": "conteo", "sql": "SELECT COUNT(*) FROM t WHERE metodo = 'EFECTIVO'"}
+{"id": "P07", "pregunta": "¿Qué porcentaje del monto total se pagó por SPEI? Redondea a un decimal.", "respuesta": 28.8, "tipo": "%", "sql": "SELECT ROUND(100 * SUM(total) FILTER (WHERE metodo = 'SPEI') / SUM(total), 1) FROM t"}
+{"id": "P08", "pregunta": "¿Qué fecha tuvo más transacciones? Responde en formato AAAA-MM-DD.", "respuesta": "2026-03-09", "tipo": "texto", "sql": "SELECT strftime(fecha, '%Y-%m-%d') FROM t GROUP BY fecha ORDER BY COUNT(*) DESC, fecha LIMIT 1"}
+{"id": "P09", "pregunta": "¿Cuántas transacciones tienen una cantidad mayor a 3?", "respuesta": 81, "tipo": "conteo", "sql": "SELECT COUNT(*) FROM t WHERE cantidad > 3"}
+{"id": "P10", "pregunta": "¿Qué cliente gastó más en total? Responde con su ID.", "respuesta": "CLI-0059", "tipo": "texto", "sql": "SELECT cliente FROM t GROUP BY cliente ORDER BY SUM(total) DESC LIMIT 1"}

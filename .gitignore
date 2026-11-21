@@ -218,3 +218,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# course
+node_modules/
+.shots/
+sesiones/*/lab-marcador/marcador_v0.json

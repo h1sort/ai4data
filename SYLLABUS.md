@@ -52,8 +52,8 @@ Todo corre en local con DuckDB. En los módulos 4 y 6 se usa además un warehous
 ### Sesión 1 · El LLM como instrumento de medición en datos
 - Repaso de 10 min con enlace a la clase 3 gratuita.
 - **Lab nanoGPT (45–60 min):** entrenar en CPU un modelo de caracteres mínimo (basado en nanoGPT de Andrej Karpathy) con datos generados para el curso:
-  - cadenas de aritmética (`23+45=68`): acierta las sumas que vio, falla las nuevas, y con toda seguridad;
-  - una columna de texto del caso (descripciones de transacciones): inventa filas que parecen reales y no lo son.
+  - cadenas de aritmética (`23+45=68`): acierta ~92% de las sumas, las que vio y las que no, falla todas las de tres cifras y nunca contesta "no sé";
+  - filas de transacciones de un comercio ficticio: inventa filas que parecen reales y una de cada cuatro rompe alguna regla del negocio (fecha imposible, comercio inventado, total mal multiplicado).
   - Conclusión: el modelo aprendió *cómo se ven* los datos, no *qué es verdad*. Por eso el resto del programa trata de herramientas, SQL y evals.
   - Plan B: checkpoint pre-entrenado para quien tenga una laptop lenta.
 - Tokens aplicados a datos: cómo se tokenizan números, fechas y tablas; cuántas filas caben realmente en una ventana de contexto y cuánto cuesta.
